@@ -6,6 +6,13 @@ return array(
      'SHOW_PAGE_TRACE'=>true,
     //路由对大小写不敏感
     'URL_CASE_INSENSITIVE'=>true,
+    'URL_MODEL'          => '2',
+    'DEFAULT_CHARSET'    =>  'utf-8',
+    //'SESSION_PREFIX'        =>  'date_', // session 前缀
+    'COOKIE_EXPIRE'         =>  0,    // Cookie有效期
+    'COOKIE_DOMAIN'         =>  '',      // Cookie有效域名
+    'COOKIE_PATH'           =>  '/',     // Cookie路径
+    'SESSION_OPTIONS' => array('use_only_cookies'=>0,'use_trans_sid'=>1),
 
     /*
      * 数据库配置
