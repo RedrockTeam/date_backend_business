@@ -1,3 +1,4 @@
 .idea
 Application/Runtime
 config.php
+.DS_Store
