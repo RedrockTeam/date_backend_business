@@ -243,12 +243,14 @@
 				status:0,
 				info:"成功",
 				data:[
-						date_id: ,
+						{date_id: ,
 						uid: ,
 						avatar: ,
 						title: ,
 						time: ,
 						date_status: 
+						},
+						{....}
 				]
 			}
 

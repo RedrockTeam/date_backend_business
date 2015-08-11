@@ -27,6 +27,18 @@ class UsersController extends BaseController {
         ]);
     }
 
+    //获取发起的约会
+    public function createdDate() {
+        $input = I('post.');
+
+    }
+
+    //获取参加的约会
+    public function joinedDate() {
+
+    }
+
+    //检查互相关注
     private function checkConcern($input) {
         $concern = new ConcernModel();
         $map1 = [
