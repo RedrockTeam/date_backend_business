@@ -8,12 +8,15 @@ class UsersModel extends Model {
     protected $tableName  = 'users';
 
     //获取用户信息
-    public function getInfo($uid, $verify = false){
+    public function getInfo($uid, $verify_self = false, $verify_concern = false){
         $map = [
             'users.id' => $uid
         ];
         $field = 'users.id as uid, nickname, avatar, signature, gender, charm, role_id';
         if($verify) {
+            $field = $field.', realname, phone';
+        }
+        if($verify_concern) {
             $field = $field.', phone';
         }
         $data = $this->where($map)->field($field)->find();
