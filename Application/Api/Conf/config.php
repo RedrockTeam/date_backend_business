@@ -2,7 +2,7 @@
 return array(
 	//'配置项'=>'配置值'
     'DEFAULT_MODULE'       =>    'Api',  // 默认模块
-    'DEFAULT_FILTER'        => 'trim, strip_tags, htmlspecialchars',//自定义过滤方法
+    'DEFAULT_FILTER'        => 'htmlspecialchars,strip_tags,trim',//自定义过滤方法
     /**
      * 路由配置
      */
@@ -15,7 +15,7 @@ return array(
 
         //用户接口
         'user/info' => 'Users/info', //获取个人信息
-        'user/collection' => 'Test/collection', //获取收藏列表
+        'user/collection' => 'Collection/collection', //获取收藏列表
         'user/getletter' => 'Test/getletter', //获取私信
         'user/postletter' => 'Test/postletter', //发出私信
         'user/mydatelist' => 'Test/mydatelist', //获取发起的约

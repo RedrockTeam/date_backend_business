@@ -19,7 +19,12 @@ class UsersController extends BaseController {
             }
         }
         $user = new UsersModel();
-        $this->ajaxReturn($user->getInfo($input['uid'], $verify_self, $verify_concern));
+        $data = $user->getInfo($input['uid'], $verify_self, $verify_concern);
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功',
+            'data' => $data
+        ]);
     }
 
     private function checkConcern($input) {

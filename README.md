@@ -140,12 +140,15 @@
 				status:0,
 				info:"成功",
 				data:[
-						date_id: ,
-						title: ,
-						uid: ,
-						avatar: ,
-						nickname: ,
-						date_status: 
+						{
+							date_id: ,
+							title: ,
+							uid: ,
+							avatar: ,
+							nickname: ,
+							date_status: 
+						},
+						{.....}
 				]
 			}
 		Attention: 查看收藏约详情直接根据date_id请求约详情接口
