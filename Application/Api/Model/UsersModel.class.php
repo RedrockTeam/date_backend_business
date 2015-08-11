@@ -1,0 +1,28 @@
+<?php
+
+namespace Api\Model;
+use Think\Model;
+
+class UsersModel extends Model {
+
+    protected $tableName  = 'users';
+
+    //获取用户信息
+    public function getInfo($uid, $verify = false){
+        $map = [
+            'users.id' => $uid
+        ];
+        $field = 'users.id as uid, nickname, avatar, signature, gender, charm, role_id';
+        if($verify) {
+            $field = $field.', phone';
+        }
+        $data = $this->where($map)->field($field)->find();
+        $data['hobby'] = $this->where($map)
+                                ->join("join user_hobby on users.id = user_hobby.user_id")
+                                ->join('join hobby on user_hobby.hobby_id = hobby.id')
+                                ->select();
+        return $data;
+    }
+
+
+}

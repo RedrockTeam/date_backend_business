@@ -51,7 +51,7 @@
 				info:"成功",
 				data:[
 						uid:1, //用户id
-						avator:"http://dsfsdaa", //用户头像
+						avatar:"http://dsfsdaa", //用户头像
 						nickname:"刘慧芝减肥成功了吗?", //用户昵称
 						signature:"23333333", //用户个性签名
 						gender:1, //用户性别1男2女
@@ -107,7 +107,7 @@
 				data:[
 						uid: ,
 						nickname: ,
-						avator: ,
+						avatar: ,
 						realname: ,//真名, 获取自己信息才会出现
 						gender: ,
 						school: ,
@@ -140,7 +140,7 @@
 						date_id: ,
 						title: ,
 						uid: ,
-						avator: ,
+						avatar: ,
 						nickname: ,
 						date_status: 
 				]
@@ -165,9 +165,9 @@
 				info:"成功",
 				data:[
 						from: ,//发信人
-						from_avator: ,
+						from_avatar: ,
 						to: ,//收信人
-						to_avator: ,
+						to_avatar: ,
 						content: ,
 						time: ,
 				]
@@ -187,9 +187,9 @@
 				info:"成功",
 				data:[
 						from: ,
-						from_avator: ,
+						from_avatar: ,
 						to: ,
-						to_avator: ,
+						to_avatar: ,
 						content: ,
 						time: ,
 				]
@@ -213,7 +213,7 @@
 				data:[
 						{date_id: ,
 						uid: ,
-						avator: ,
+						avatar: ,
 						title: ,
 						time: ,
 						date_status: },
@@ -239,7 +239,7 @@
 				data:[
 						date_id: ,
 						uid: ,
-						avator: ,
+						avatar: ,
 						title: ,
 						time: ,
 						date_status: 
@@ -267,7 +267,7 @@
 						{
 						uid: ,
 						nickname: ,
-						avator: ,
+						avatar: ,
 						signature: ,
 						charm: ,
 						role_id:
@@ -293,7 +293,7 @@
 				data:[
 						uid: ,
 						nickname: ,
-						avator: ,
+						avatar: ,
 						signature: ,
 						charm: ,
 						role_id: 
@@ -323,12 +323,12 @@
 
 	- 修改头像
 			
-			URL: api/user/editavator
+			URL: api/user/editavatar
 			Request: 
 			{
 				uid:,
 				token:,
-				avator: file,
+				avatar: file,
 			}
 			Response: 
 			{
@@ -345,7 +345,7 @@
 			{
 				uid:,
 				token:,
-				avator: file,
+				avatar: file,
 			}
 			Response: 
 			{
@@ -416,7 +416,7 @@
 				        uid: ,
 				        nickname: ,
 				        signature: ,
-				        avator: ,
+				        avatar: ,
 				        gender: ,
 				        role_id: ,
 				    },
@@ -455,7 +455,7 @@
 				        date_comment:[
 				        {
 				            uid: ,
-				            avator: ,
+				            avatar: ,
 				            nickname: ,
 				            comment_id: ,
 				            content: ,
@@ -463,7 +463,7 @@
 				            reply: [
 				            {
 				               uid: ,
-				               avator: ,
+				               avatar: ,
 				               nickname: ,
 				               content: ,
 				               time: ,
@@ -473,7 +473,7 @@
 				        ],
 				        date_status: ,
 				        uid: ,
-				        avator: ,
+				        avatar: ,
 				        gender: ,
 				        role_id: ,
 				    			
@@ -610,7 +610,7 @@
 				     discover_comment: [
 				         {
 				            uid: ,
-				            avator: ,
+				            avatar: ,
 				            nickname: ,
 				            comment_id: ,
 				            content: ,
@@ -618,7 +618,7 @@
 				            reply: [
 				            {
 				               uid: ,
-				               avator: ,
+				               avatar: ,
 				               nickname: ,
 				               content: ,
 				               time: ,

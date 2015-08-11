@@ -10,7 +10,7 @@ class TestController extends Controller
             'info' => '成功',
             'data' => [
                 'uid' => 1, //用户id
-                'avator' => "http://dsfsdaa", //用户头像
+                'avatar' => "http://dsfsdaa", //用户头像
                 'nickname' => "刘慧芝减肥成功了吗?", //用户昵称
                 'signature' => "23333333", //用户个性签名
                 'gender' => 1, //用户性别1男2女
@@ -51,7 +51,7 @@ class TestController extends Controller
             'data' => [
                 'uid' => 1,
                 'nickname' => '刘慧芝又肥了',
-                'avator' => 'http://',
+                'avatar' => 'http://',
                 'realname' => '',//真名, 获取自己信息才会出现
                 'gender' => '1',
                 'school' => '重邮',
@@ -77,7 +77,7 @@ class TestController extends Controller
                 'date_id' => 3,
                 'title' => '吃饭',
                 'uid' => 1,
-                'avator' => 'http://',
+                'avatar' => 'http://',
                 'nickname' => '刘慧芝又肥了',
                 'date_status' => 1
             ]
@@ -91,9 +91,9 @@ class TestController extends Controller
             'info' => '成功',
             'data' => [
                 'from' => 1,
-                'from_avator' => 'http://',
+                'from_avatar' => 'http://',
                 'to' => 2,
-                'to_avator' => 'http://',
+                'to_avatar' => 'http://',
                 'content' => 'sb报名了你的约',
                 'time' => 11111111111,
             ]
@@ -123,7 +123,7 @@ class TestController extends Controller
                 [
                     'date_id' => 2,
                     'uid' => 1,
-                    'avator' => 'http://',
+                    'avatar' => 'http://',
                     'title' => 'haha',
                     'time' => 11111111111,
                     'date_status' => 1
@@ -140,7 +140,7 @@ class TestController extends Controller
                 [
                     'date_id' => 2,
                     'uid' => 2,
-                    'avator' => 'http://',
+                    'avatar' => 'http://',
                     'title' => 'haha',
                     'time' => 11111111111,
                     'date_status' => 1
@@ -157,7 +157,7 @@ class TestController extends Controller
                 [
                     'uid' => '2',
                     'nickname' => 'haha',
-                    'avator' => 'http://',
+                    'avatar' => 'http://',
                     'signature' => 'sbsbs',
                     'charm' => 100,
                     'role_id' => 1
@@ -174,7 +174,7 @@ class TestController extends Controller
                 [
                     'uid' => '2',
                     'nickname' => 'haha',
-                    'avator' => 'http://',
+                    'avatar' => 'http://',
                     'signature' => 'sbsbs',
                     'charm' => 100,
                     'role_id' => 1
@@ -195,7 +195,7 @@ class TestController extends Controller
     }
 
 
-    public function editavator() {
+    public function editavatar() {
         $this->ajaxReturn([
             'status'=> 0,
             'info' => '成功',
@@ -259,7 +259,7 @@ class TestController extends Controller
 				        'uid' => 1,
 				        'nickname' => '刘慧芝又肥了',
 				        'signature' => '不要你管',
-				        'avator' => 'http://',
+				        'avatar' => 'http://',
 				        'gender' => 1,
 				        'role_id' => 1,
 
@@ -291,7 +291,7 @@ class TestController extends Controller
 				        'date_comment' =>[
 				        [
                             'uid' => 1,
-                            'avator' => 'http://',
+                            'avatar' => 'http://',
                             'nickname' => '刘慧芝又肥了',
                             'comment_id' => 8,
                             'content' => "i'm sb",
@@ -299,7 +299,7 @@ class TestController extends Controller
                             'reply' => [
 				            [
                                 'uid' => 1,
-                                'avator' => 'http://',
+                                'avatar' => 'http://',
                                 'nickname' => '刘慧芝又肥了',
                                 'content' => 'asdfdfa',
                                 'time' => 111111111,
@@ -309,7 +309,7 @@ class TestController extends Controller
 				        ],
 				        'date_status' => 1,
 				        'uid' => 1,
-				        'avator' => 'http://',
+				        'avatar' => 'http://',
 				        'gender' => 1,
 				        'role_id' => 1,
                     
@@ -372,7 +372,7 @@ class TestController extends Controller
 				     'discover_comment' => [
 				         [
                              'uid' => 1,
-                             'avator' => 'http://',
+                             'avatar' => 'http://',
                              'nickname' => '刘慧芝又肥了',
                              'comment_id' => 8,
                              'content' => "i'm sb",
@@ -380,7 +380,7 @@ class TestController extends Controller
                              'reply' => [
                                  [
                                      'uid' => 1,
-                                     'avator' => 'http://',
+                                     'avatar' => 'http://',
                                      'nickname' => '刘慧芝又肥了',
                                      'content' => 'asdfdfa',
                                      'time' => 111111111,

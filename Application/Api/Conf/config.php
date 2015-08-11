@@ -14,7 +14,7 @@ return array(
         'public/school' => 'Test/school',//学校
 
         //用户接口
-        'user/info' => 'Test/info', //获取个人信息
+        'user/info' => 'Users/info', //获取个人信息
         'user/collection' => 'Test/collection', //获取收藏列表
         'user/getletter' => 'Test/getletter', //获取私信
         'user/postletter' => 'Test/postletter', //发出私信
@@ -23,7 +23,7 @@ return array(
         'user/care' => 'Test/care', //我关注的人
         'user/careme' => 'Test/careme', //关注我的人
         'user/userverify' => 'Test/userverify', //实名认证
-        'user/editavator' => 'Test/editavator', //修改头像
+        'user/editavatar' => 'Test/editavatar', //修改头像
         'user/editsignature' => 'Test/editsignature', //修改个性签名
         'user/edithobby' => 'Test/edithobby', //修改爱好
         'user/editpassword' => 'Test/editpassword', //修改密码
