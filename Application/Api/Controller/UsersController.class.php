@@ -3,6 +3,7 @@ namespace Api\Controller;
 use Api\Model\ApplyModel;
 use Api\Model\ConcernModel;
 use Api\Model\DateModel;
+use Api\Model\UserHobbyModel;
 use Api\Model\UsersModel;
 use Think\Controller;
 class UsersController extends BaseController {
@@ -67,6 +68,46 @@ class UsersController extends BaseController {
         ]);
     }
 
+    //修改头像
+    public function editAvatar() {
+        //todo 七牛
+    }
+
+    //修改个性签名
+    public function editSignature() {
+        $input = I('post.');
+        $user = new UsersModel();
+        if($user->editSignature($input)) {
+            $this->ajaxReturn([
+                'status' => 0,
+                'info' => '成功'
+            ]);
+        }
+        $this->ajaxReturn([
+            'status' => 1001,
+            'info' => '失败'
+        ]);
+    }
+
+    //修改爱好
+    public function editHobby() {
+        $input = I('post.');
+        $user_hobby = new UserHobbyModel();
+        if($user_hobby->editHobby($input)) {
+            $this->ajaxReturn([
+                'status' => 0,
+                'info' => '成功'
+            ]);
+        }
+        $this->ajaxReturn([
+            'status' => 1001,
+            'info' => '失败'
+        ]);
+    }
+
+    //修改密码
+    public function editPassword() {}
+
     //检查互相关注
     private function checkConcern($input) {
         $concern = new ConcernModel();
@@ -88,4 +129,5 @@ class UsersController extends BaseController {
         return false;
 
     }
+
 }

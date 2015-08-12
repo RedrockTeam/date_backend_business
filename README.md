@@ -355,7 +355,7 @@
 			{
 				uid:,
 				token:,
-				avatar: file,
+				avatar: ,//七牛url
 			}
 			Response: 
 			{
@@ -372,14 +372,13 @@
 			{
 				uid:,
 				token:,
-				avatar: file,
+				signature: ,
 			}
 			Response: 
 			{
 				status:0,
 				info:"成功",
 			}
-			Attention: form-data
 
 	
 	- 爱好

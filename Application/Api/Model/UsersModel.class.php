@@ -13,7 +13,7 @@ class UsersModel extends Model {
             'users.id' => $uid
         ];
         $field = 'users.id as uid, nickname, avatar, signature, gender, charm, role_id';
-        if($verify) {
+        if($verify_self) {
             $field = $field.', realname, phone';
         }
         if($verify_concern) {
@@ -26,6 +26,18 @@ class UsersModel extends Model {
                                 ->select();
         return $data;
     }
+
+    //修改签名
+    public function editSignature($input) {
+        $map = [
+            'users.id' => $input['uid']
+        ];
+        if($this->where($map)->save(['signature' => $input['signature']])){
+            return true;
+        }
+        return false;
+    }
+
 
 
 }

@@ -23,11 +23,11 @@ return array(
         'user/care' => 'Test/care', //我关注的人
         'user/careme' => 'Test/careme', //关注我的人
         'user/userverify' => 'Test/userverify', //实名认证
-        'user/editavatar' => 'Test/editavatar', //修改头像
-        'user/editsignature' => 'Test/editsignature', //修改个性签名
-        'user/edithobby' => 'Test/edithobby', //修改爱好
-        'user/editpassword' => 'Test/editpassword', //修改密码
-        'user/carenum' => 'Users/careNum', //修改密码
+        'user/editavatar' => 'Users/editAvatar', //修改头像
+        'user/editsignature' => 'Users/editSignature', //修改个性签名
+        'user/edithobby' => 'Users/editHobby', //修改爱好
+        'user/editpassword' => 'Users/editPassword', //修改密码
+        'user/carenum' => 'Users/careNum', //获取关注/被关注数
 
         //约会接口
         'date/datelist' => 'Test/datelist', //获取约列表
