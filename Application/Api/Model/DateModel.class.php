@@ -16,7 +16,7 @@ class DateModel extends Model {
         return $this->where($map)
                     ->limit($offset, $limit)
                     ->join('join users on date.user_id = users.id')
-                    ->field('users.id as uid, date.title, date.id as date_id, users.avatar, users.nickname, date.time, date.status as date_status')
+                    ->field('users.id as uid, date.title, date.id as date_id, users.avatar, users.nickname, date.date_time, date.create_time, date.status as date_status')
                     ->select();
     }
 

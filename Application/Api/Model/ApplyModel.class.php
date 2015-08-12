@@ -3,7 +3,7 @@
 namespace Api\Model;
 use Think\Model;
 
-class ConcernModel extends Model {
+class ApplyModel extends Model {
 
     protected $tableName  = 'apply';
 
@@ -17,7 +17,7 @@ class ConcernModel extends Model {
             ->limit($offset, $limit)
             ->join('join date on apply.date_id = date.id')
             ->join('join users on date.user_id = users.id')
-            ->field('users.id as uid, date.title, date.id as date_id, users.avatar, users.nickname, date.time, date.status as date_status')
+            ->field('users.id as uid, date.title, date.id as date_id, users.avatar, users.nickname, date.date_time, date.create_time, date.status as date_status')
             ->select();
     }
 

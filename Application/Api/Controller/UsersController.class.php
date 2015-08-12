@@ -1,6 +1,8 @@
 <?php
 namespace Api\Controller;
+use Api\Model\ApplyModel;
 use Api\Model\ConcernModel;
+use Api\Model\DateModel;
 use Api\Model\UsersModel;
 use Think\Controller;
 class UsersController extends BaseController {
@@ -30,12 +32,25 @@ class UsersController extends BaseController {
     //获取发起的约会
     public function createdDate() {
         $input = I('post.');
-
+        $date = new DateModel();
+        $data = $date->getCreatedDate($input);
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功',
+            'data' => $data
+        ]);
     }
 
     //获取参加的约会
     public function joinedDate() {
-
+        $input = I('post.');
+        $date = new ApplyModel();
+        $data = $date->getJoinedDate($input);
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功',
+            'data' => $data
+        ]);
     }
 
     //检查互相关注

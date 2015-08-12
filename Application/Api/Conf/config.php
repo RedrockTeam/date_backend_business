@@ -18,8 +18,8 @@ return array(
         'user/collection' => 'Collection/collection', //获取收藏列表
         'user/getletter' => 'Test/getletter', //获取私信
         'user/postletter' => 'Test/postletter', //发出私信
-        'user/mydatelist' => 'Test/mydatelist', //获取发起的约
-        'user/joineddatelist' => 'Test/joineddatelist', //获取参加的约
+        'user/mydatelist' => 'Users/createdDate', //获取发起的约
+        'user/joineddatelist' => 'Users/joinedDate', //获取参加的约
         'user/care' => 'Test/care', //我关注的人
         'user/careme' => 'Test/careme', //关注我的人
         'user/userverify' => 'Test/userverify', //实名认证

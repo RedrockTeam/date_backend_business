@@ -221,7 +221,8 @@
 						uid: ,
 						avatar: ,
 						title: ,
-						time: ,
+						date_time: ,
+						create_time: ,
 						date_status: },
 						{.....}
 				]
