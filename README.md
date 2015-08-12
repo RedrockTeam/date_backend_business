@@ -232,58 +232,76 @@
 	
 	- 获取参加的约
  
- 			URL: api/user/joineddatelist
-			Request: 
-			{
-				uid:,
-				token:,
-				page: 
-			}
-			Response: 
-			{
-				status:0,
-				info:"成功",
-				data:[
-						{date_id: ,
-						uid: ,
-						avatar: ,
-						title: ,
-						time: ,
-						date_status: 
-						},
-						{....}
-				]
-			}
+                URL: api/user/joineddatelist
+                Request: 
+                {
+                    uid:,
+                    token:,
+                    page: 
+                }
+                Response: 
+                {
+                    status:0,
+                    info:"成功",
+                    data:[
+                            {date_id: ,
+                            uid: ,
+                            avatar: ,
+                            title: ,
+                            time: ,
+                            date_status: 
+                            },
+                            {....}
+                    ]
+                }
 
 
 	
 5. 关注列表
+	- 用户关注数
+	
+            URL: api/user/carenum
+            Request: 
+            {
+                uid:,
+                token:,
+                get_uid: 
+            }
+            Response: 
+            {
+                status:0,
+                info:"成功",
+                data:[
+                        care_num: ,//我关注的
+                        cared_num: ,//关注我的
+                ]
+            }
 
 	- 我关注的人
-	 		
-	 		URL: api/user/care
-			Request: 
-			{
-				uid:,
-				token:,
-				page: 
-			}
-			Response: 
-			{
-				status:0,
-				info:"成功",
-				data:[
-						{
-						uid: ,
-						nickname: ,
-						avatar: ,
-						signature: ,
-						charm: ,
-						role_id:
-						},
-						{...}
-				]
-			}
+	
+                URL: api/user/care
+                Request: 
+                {
+                    uid:,
+                    token:,
+                    page: 
+                }
+                Response: 
+                {
+                    status:0,
+                    info:"成功",
+                    data:[
+                            {
+                            uid: ,
+                            nickname: ,
+                            avatar: ,
+                            signature: ,
+                            charm: ,
+                            role_id:
+                            },
+                            {...}
+                    ]
+                }
 
 	
 	- 关注我的人 

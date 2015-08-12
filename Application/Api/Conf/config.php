@@ -27,6 +27,7 @@ return array(
         'user/editsignature' => 'Test/editsignature', //修改个性签名
         'user/edithobby' => 'Test/edithobby', //修改爱好
         'user/editpassword' => 'Test/editpassword', //修改密码
+        'user/carenum' => 'Users/careNum', //修改密码
 
         //约会接口
         'date/datelist' => 'Test/datelist', //获取约列表

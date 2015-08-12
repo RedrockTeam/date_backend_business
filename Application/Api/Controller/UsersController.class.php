@@ -29,6 +29,20 @@ class UsersController extends BaseController {
         ]);
     }
 
+    //关注数
+    public function careNum() {
+        $input = I('post.');
+        $concern = new ConcernModel();
+        $data = [
+            'care_num' => $concern->getCare($input),
+            'cared_num' => $concern->getCared($input),
+        ];
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功',
+            'data' => $data
+        ]);
+    }
     //获取发起的约会
     public function createdDate() {
         $input = I('post.');
