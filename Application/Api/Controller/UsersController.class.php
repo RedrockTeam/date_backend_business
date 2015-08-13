@@ -106,7 +106,20 @@ class UsersController extends BaseController {
     }
 
     //修改密码
-    public function editPassword() {}
+    public function editPassword() {
+        $input = I('post.');
+        $user = new UsersModel();
+        if($user->editPassword($input)){
+            $this->ajaxReturn([
+                'status' => 0,
+                'info' => '成功'
+            ]);
+        }
+        $this->ajaxReturn([
+            'status' => 1,
+            'info' => '旧密码错误!'
+        ]);
+    }
 
     //检查互相关注
     private function checkConcern($input) {

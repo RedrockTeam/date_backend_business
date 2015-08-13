@@ -38,6 +38,20 @@ class UsersModel extends Model {
         return false;
     }
 
-
+    //修改密码
+    public function editPassword($input) {
+        $map = [
+            'id' => $input['uid']
+        ];
+        $account = $this->where($map)->getField('account');
+        $oldPassword = $this->where($map)->getField('password');
+        $head = substr($account,1,3);
+        if($input['oldpassword'] != sha1(md5($oldPassword.$oldPassword).$head)) {
+            return false;
+        }
+        $newPassword = sha1(md5($input['newpassword'].$input['newpassword']).$head);
+        $this->where($map)->save(['password' => $newPassword]);
+        return true;
+    }
 
 }
