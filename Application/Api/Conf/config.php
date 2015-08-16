@@ -39,9 +39,10 @@ return array(
 //        'date/judgedate' => 'Test/judgedate', //评论
 
         //发现接口
-        'discover/discoverlist' => 'Test/discoverlist', //获取发现列表
+        'discover/discoverlist' => 'Discover/discoverlist', //获取发现列表
         'discover/detaildiscover' => 'Test/detaildiscover', //发现详情
         'discover/applydiscover' => 'Test/applydiscover', //参加活动
+        'discover/creatediscover' => 'Test/applydiscover', //参加活动
 //        'discover/discoverlist' => 'Test/搜索', //搜索
 
 ]

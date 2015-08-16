@@ -592,6 +592,7 @@
 			{
 				uid: ,
 				token: ,
+				page: ,
 			}
 			Response: 
 			{
@@ -678,5 +679,24 @@
 4. 搜索
 
     - ...
+
+5. 发布发现(仅商家)
+
+		 URL: api/discover/creatediscover
+        			Request: 
+        			{
+        				uid: ,
+        				token: ,
+        				title: ,
+        				caption: ,//副标题
+        				picture: ,//图片地址
+        				place: ,//地点
+        				time: ,//开始时间
+        			}
+        			Response: 
+        			{
+        				status:0,
+        				info:"成功",	
+        			} 
 		
 				
