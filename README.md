@@ -622,6 +622,7 @@
 			{
 				uid: ,
 				token: ,
+				discover_id:
 			}
 			Response: 
 			{

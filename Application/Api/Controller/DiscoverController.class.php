@@ -43,7 +43,19 @@ class DiscoverController extends BaseController {
         ]);
     }
 
-    private function checkData($data) {
+    //获取发现详情
+    public function detaildiscover() {
+        $discover_id = I('post.discover_id');
+        $discover = new DiscoveryModel();
+        $data = $discover->getDiscover();
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功',
+            'data' => $data
+        ]);
+    }
+
+   private function checkData($data) {
         if(mb_strlen($data['title'], 'utf8') > self::TITLE){
             return false;
         }
