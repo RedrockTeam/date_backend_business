@@ -33,8 +33,14 @@ class DiscoverController extends BaseController {
 
     //获取发现列表
     public function discoverlist() {
-        $input = I('post.page');
-
+        $page = I('post.page');
+        $discover = new DiscoveryModel();
+        $data = $discover->getDiscoverList($page);
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功',
+            'data' => $data
+        ]);
     }
 
     private function checkData($data) {

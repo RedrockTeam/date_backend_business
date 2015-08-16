@@ -605,7 +605,10 @@
 				     discover_title: ,
 				     discover_caption: , //副标题
 				     discover_picture: ,//图片
-				    },
+				     discover_time: ,//截止时间
+				     discover_praise: ,//点赞数
+                     discover_status: //发现状态, 0 结束 1 进行中
+				     },
 				    {.......}    
 				]
 			}
