@@ -47,13 +47,15 @@ class DiscoverController extends BaseController {
     public function detaildiscover() {
         $discover_id = I('post.discover_id');
         $discover = new DiscoveryModel();
-        $data = $discover->getDiscover();
+        $data = $discover->getDiscover($discover_id);
         $this->ajaxReturn([
             'status' => 0,
             'info' => '成功',
             'data' => $data
         ]);
     }
+
+    //
 
    private function checkData($data) {
         if(mb_strlen($data['title'], 'utf8') > self::TITLE){
