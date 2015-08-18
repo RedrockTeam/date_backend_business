@@ -318,12 +318,15 @@
 				status:0,
 				info:"成功",
 				data:[
+						{
 						uid: ,
 						nickname: ,
 						avatar: ,
 						signature: ,
 						charm: ,
 						role_id: 
+						},
+						{....}
 				]
 			}
 

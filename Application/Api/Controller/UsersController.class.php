@@ -6,16 +6,18 @@ use Api\Model\DateModel;
 use Api\Model\UserHobbyModel;
 use Api\Model\UsersModel;
 use Think\Controller;
-class UsersController extends BaseController {
+class UsersController extends BaseController
+{
 
     //获取个人信息
-    public function info() {
+    public function info()
+    {
         $input = I('post.', '');
-        if($input['uid'] == $input['get_uid']) {
+        if ($input['uid'] == $input['get_uid']) {
             $verify_self = true;
         } else {
             $verify_self = false;
-            if($this->checkConcern($input)) {
+            if ($this->checkConcern($input)) {
                 $verify_concern = true;
             } else {
                 $verify_concern = false;
@@ -30,8 +32,35 @@ class UsersController extends BaseController {
         ]);
     }
 
+
+
+    //获取我关心的
+    public function care() {
+        $input = I('post.');
+        $concern = new ConcernModel();
+        $data = $concern->myCare($input);
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功',
+            'data' => $data
+        ]);
+    }
+
+    //获取关心我的
+    public function careme() {
+        $input = I('post.');
+        $concern = new ConcernModel();
+        $data = $concern->careMe($input);
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功',
+            'data' => $data
+        ]);
+    }
+
     //关注数
-    public function careNum() {
+    public function careNum()
+    {
         $input = I('post.');
         $concern = new ConcernModel();
         $data = [
@@ -44,8 +73,10 @@ class UsersController extends BaseController {
             'data' => $data
         ]);
     }
+
     //获取发起的约会
-    public function createdDate() {
+    public function createdDate()
+    {
         $input = I('post.');
         $date = new DateModel();
         $data = $date->getCreatedDate($input);
@@ -57,7 +88,8 @@ class UsersController extends BaseController {
     }
 
     //获取参加的约会
-    public function joinedDate() {
+    public function joinedDate()
+    {
         $input = I('post.');
         $date = new ApplyModel();
         $data = $date->getJoinedDate($input);
@@ -69,15 +101,17 @@ class UsersController extends BaseController {
     }
 
     //修改头像
-    public function editAvatar() {
+    public function editAvatar()
+    {
         //todo 七牛
     }
 
     //修改个性签名
-    public function editSignature() {
+    public function editSignature()
+    {
         $input = I('post.');
         $user = new UsersModel();
-        if($user->editSignature($input)) {
+        if ($user->editSignature($input)) {
             $this->ajaxReturn([
                 'status' => 0,
                 'info' => '成功'
@@ -90,10 +124,11 @@ class UsersController extends BaseController {
     }
 
     //修改爱好
-    public function editHobby() {
+    public function editHobby()
+    {
         $input = I('post.');
         $user_hobby = new UserHobbyModel();
-        if($user_hobby->editHobby($input)) {
+        if ($user_hobby->editHobby($input)) {
             $this->ajaxReturn([
                 'status' => 0,
                 'info' => '成功'
@@ -106,10 +141,11 @@ class UsersController extends BaseController {
     }
 
     //修改密码
-    public function editPassword() {
+    public function editPassword()
+    {
         $input = I('post.');
         $user = new UsersModel();
-        if($user->editPassword($input)){
+        if ($user->editPassword($input)) {
             $this->ajaxReturn([
                 'status' => 0,
                 'info' => '成功'
@@ -122,7 +158,8 @@ class UsersController extends BaseController {
     }
 
     //检查互相关注
-    private function checkConcern($input) {
+    private function checkConcern($input)
+    {
         $concern = new ConcernModel();
         $map1 = [
             'from' => $input['uid'],
@@ -135,7 +172,7 @@ class UsersController extends BaseController {
         ];
         $num2 = $concern->where($map2)->count();
 
-        if($num1 == 1 && $num2 == 1) {
+        if ($num1 == 1 && $num2 == 1) {
             return true;
         }
 

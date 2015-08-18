@@ -20,8 +20,8 @@ return array(
         'user/postletter' => 'Test/postletter', //发出私信
         'user/mydatelist' => 'Users/createdDate', //获取发起的约
         'user/joineddatelist' => 'Users/joinedDate', //获取参加的约
-        'user/care' => 'Test/care', //我关注的人
-        'user/careme' => 'Test/careme', //关注我的人
+        'user/care' => 'Users/care', //我关注的人
+        'user/careme' => 'Users/careme', //关注我的人
         'user/userverify' => 'Test/userverify', //实名认证
         'user/editavatar' => 'Users/editAvatar', //修改头像
         'user/editsignature' => 'Users/editSignature', //修改个性签名
