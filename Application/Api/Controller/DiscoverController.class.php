@@ -32,7 +32,7 @@ class DiscoverController extends BaseController {
     }
 
     //获取发现列表
-    public function discoverlist() {
+    public function discoverList() {
         $page = I('post.page');
         $discover = new DiscoveryModel();
         $data = $discover->getDiscoverList($page);
@@ -44,7 +44,7 @@ class DiscoverController extends BaseController {
     }
 
     //获取发现详情
-    public function detaildiscover() {
+    public function detailDiscover() {
         $discover_id = I('post.discover_id');
         $discover = new DiscoveryModel();
         $data = $discover->getDiscover($discover_id);
@@ -55,7 +55,22 @@ class DiscoverController extends BaseController {
         ]);
     }
 
-    //
+    //参加发现
+    public function applyDiscover() {
+        $input = I('post.');
+        $discover = new DiscoveryModel();
+        if(!$discover->joinDiscover($input)) {
+            $this->ajaxReturn([
+                'status' => 1,
+                'info' => '报名已结束'
+            ]);
+        } else {
+            $this->ajaxReturn([
+                'status' => 0,
+                'info' => '成功'
+            ]);
+        }
+    }
 
    private function checkData($data) {
         if(mb_strlen($data['title'], 'utf8') > self::TITLE){

@@ -20,13 +20,12 @@ return array(
         //用户接口
         'user/info'           => 'Users/info', //获取个人信息
         'user/collection'     => 'Collection/collection', //获取收藏列表
-        'user/getletter'      => 'Test/getletter', //获取私信
-        'user/postletter'     => 'Test/postletter', //发出私信
+        'user/getletter'      => 'Test/getletter', //获取私信 todo
+        'user/postletter'     => 'Test/postletter', //发出私信 todo
         'user/mydatelist'     => 'Users/createdDate', //获取发起的约
         'user/joineddatelist' => 'Users/joinedDate', //获取参加的约
         'user/care'           => 'Users/care', //我关注的人
         'user/careme'         => 'Users/caremMe', //关注我的人
-        'user/userverify'     => 'Test/userverify', //实名认证
         'user/editavatar'     => 'Users/editAvatar', //修改头像
         'user/editsignature'  => 'Users/editSignature', //修改个性签名
         'user/edithobby'      => 'Users/editHobby', //修改爱好
@@ -46,10 +45,10 @@ return array(
     //    'date/judgedate'   => 'Test/judgedate', //评论
 
         //发现接口
-        'discover/discoverlist'    => 'Discover/discoverlist', //获取发现列表
-        'discover/detaildiscover'  => 'Test/detaildiscover', //发现详情
-        'discover/applydiscover'   => 'Test/applydiscover', //参加活动
-        'discover/creatediscover'  => 'Test/applydiscover', //参加活动
+        'discover/discoverlist'    => 'Discover/discoverList', //获取发现列表
+        'discover/detaildiscover'  => 'Discover/detaildDiscover', //发现详情
+        'discover/applydiscover'   => 'Discover/applyDiscover', //参加活动
+        'discover/creatediscover'  => 'Discover/createDiscover', //发布活动
  //       'discover/discoverlist'    => 'Test/搜索', //搜索
 
 ]
