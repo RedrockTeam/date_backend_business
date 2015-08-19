@@ -21,13 +21,15 @@ return array(
         'user/mydatelist' => 'Users/createdDate', //获取发起的约
         'user/joineddatelist' => 'Users/joinedDate', //获取参加的约
         'user/care' => 'Users/care', //我关注的人
-        'user/careme' => 'Users/careme', //关注我的人
+        'user/careme' => 'Users/caremMe', //关注我的人
         'user/userverify' => 'Test/userverify', //实名认证
         'user/editavatar' => 'Users/editAvatar', //修改头像
         'user/editsignature' => 'Users/editSignature', //修改个性签名
         'user/edithobby' => 'Users/editHobby', //修改爱好
         'user/editpassword' => 'Users/editPassword', //修改密码
         'user/carenum' => 'Users/careNum', //获取关注/被关注数
+        'user/addcare' => 'Users/addCare', //关注某人
+        'user/delcare' => 'Users/delCare', //取关某人
 
         //约会接口
         'date/datelist' => 'Test/datelist', //获取约列表

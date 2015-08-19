@@ -257,10 +257,12 @@ class TestController extends Controller
 				        'comment_num' => 20,//评论数量
 				        'apply_num' => 51,//报名人数
 				        'uid' => 1,
+                        'praise' => 2,
 				        'nickname' => '刘慧芝又肥了',
 				        'signature' => '不要你管',
 				        'avatar' => 'http://',
 				        'gender' => 1,
+                        'grade' => 2013,
 				        'role_id' => 1,
 
                     ]

@@ -217,13 +217,15 @@
 				status:0,
 				info:"成功",
 				data:[
-						{date_id: ,
+						{
+						date_id: ,
 						uid: ,
 						avatar: ,
 						title: ,
 						date_time: ,
 						create_time: ,
-						date_status: },
+						date_status: 
+						},
 						{.....}
 				]
 			}
@@ -330,9 +332,39 @@
 				]
 			}
 
+6. 关注/取关接口
 
+        -关注
+        
+            URL: api/user/addcare
+            Request: 
+            {
+                uid:,
+                token:,
+                add_uid: 
+            }
+            Response: 
+            {
+                status:0,
+                info:"成功"
+            }
+            			
+        - 取关
+        
+            URL: api/user/delcare
+            Request: 
+            {
+                uid:,
+                token:,
+                del_uid: 
+            }
+            Response: 
+            {
+                status:0,
+                info:"成功"
+            }
 
-6. 实名认证
+7. 实名认证
     	
 		 	URL: api/user/userverify
 			Request: 
@@ -349,7 +381,7 @@
         Attention: form-data
 
 
-7. 个人信息修改
+8. 个人信息修改
 
 	- 修改头像
 			
@@ -447,6 +479,7 @@
 				        signature: ,
 				        avatar: ,
 				        gender: ,
+				        grade: ,//int
 				        role_id: ,
 				    },
 				    {

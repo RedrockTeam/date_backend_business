@@ -52,4 +52,32 @@ class ConcernModel extends Model {
                     ->field('users.id as uid, users.nickname, users.avatar, users.signature users.charm, users.role_id')
                     ->select();
     }
+
+    //添加关注的人
+    public function addCare($input) {
+        $map = [
+                'id' => $input['add_uid']
+        ];
+        if(!M('users')->where($map)->count()) {
+            return false;
+        }
+        $data = [
+            'from' => $input['uid'],
+            'to' => $input['add_uid']
+        ];
+        $this->add($data);
+        return true;
+    }
+
+    //删除我关注的人
+    public function delcare($input) {
+        $data = [
+            'from' => $input['uid'],
+            'to' => $input['add_uid']
+        ];
+        if($this->where($data)->delete()) {
+            return true;
+        }
+        return false;
+    }
 }
