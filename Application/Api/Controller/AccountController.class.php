@@ -143,6 +143,9 @@ class AccountController extends Controller {
         $this->ajaxReturn($return);
     }
 
+    /**
+     * 实名认证接口
+     */
     public function realNameVerify () {
         $account  = I('post.account');
         $token    = I('post.token');
@@ -457,6 +460,12 @@ class AccountController extends Controller {
         return $file;
     }
 
+    /**
+     * @param $hobby_str
+     * @param $userId
+     * @return bool
+     * 用于爱好的添加
+     */
     private function hobby ($hobby_str,$userId) {
         $hobby_arr = explode(";",$hobby_str);
 
