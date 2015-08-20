@@ -32,7 +32,49 @@ class UsersController extends BaseController
         ]);
     }
 
+    //关注某人
+    public function addCare() {
+        $input = I('post.');
+        if($input['uid'] == $input['add_id']) {
+            $this->ajaxReturn([
+                'status' => 1,
+                'info' => '你不能关注自己',
+            ]);
+        }
+        $concern = new ConcernModel();
+        if(!$concern->addCare($input)) {
+            $this->ajaxReturn([
+                'status' => 1,
+                'info' => '没有这个用户',
+            ]);
+        } else {
+            $this->ajaxReturn([
+                'status' => 0,
+                'info' => '关注成功',
+            ]);
+        }
+        $this->ajaxReturn([
+            'status' => 1001,
+            'info' => '服务器忙',
+        ]);
+    }
 
+    //取关某人
+    public function delCare() {
+        $input = I('post.');
+        $concern = new ConcernModel();
+        if(!$concern->delCare($input)) {
+            $this->ajaxReturn([
+                'status' => 1,
+                'info' => '你没有关注此人',
+            ]);
+        } else {
+            $this->ajaxReturn([
+                'status' => 0,
+                'info' => '取关成功',
+            ]);
+        }
+    }
 
     //获取我关心的
     public function care() {
@@ -47,7 +89,7 @@ class UsersController extends BaseController
     }
 
     //获取关心我的
-    public function careme() {
+    public function careMe() {
         $input = I('post.');
         $concern = new ConcernModel();
         $data = $concern->careMe($input);
