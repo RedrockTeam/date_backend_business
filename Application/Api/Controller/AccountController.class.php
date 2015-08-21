@@ -121,9 +121,10 @@ class AccountController extends Controller {
         }
 
         $tel = $res ['phone'];
+        $id  = $res ['id'];
         $data    = [
             'token'     => $this->tokenCreate($tel),
-            'id'        => $res ['id'],
+            'uid'        => $res ['id'],
             'nickname'  => $res ['nickname'],
             'avatar'    => $res ['avatar'],
             'fans'      => $res ['fans_count'],
@@ -133,6 +134,26 @@ class AccountController extends Controller {
             'scan'      => $res ['scan_count'],
             'charm'     => $res ['charm']
         ];
+
+        $res = M('verify')->where("user_id = '$id' AND status = 1")->find();
+
+        if ($res) {
+            $data ['realname'] = $res ['real_name'];
+            $data ['school']   = $res ['school'];
+        } else {
+            $data ['realname'] = null;
+            $data ['school']   = null;
+        }
+
+        $res = M('user_hobby')->where("user_id = '$id'")->join("hobby ON hobby.id = user_hobby.hobby_id")->select();
+
+        $i = 0;
+        $hobby = "";
+        foreach ($res as $var) {
+            $i > 0 ? : ($hobby .= ";");
+            $hobby .= $var ['hobby'];
+        }
+        $data ['hobby'] = $hobby;
 
         $return = [
             'status' => '0',
