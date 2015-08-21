@@ -135,7 +135,7 @@ class AccountController extends Controller {
             'charm'     => $res ['charm']
         ];
 
-        $res = M('verify')->where("user_id = '$id' AND status = 1")->find();
+        /*$res = M('verify')->where("user_id = '$id' AND status = 1")->find();
 
         if ($res) {
             $data ['realname'] = $res ['real_name'];
@@ -154,7 +154,7 @@ class AccountController extends Controller {
             $hobby .= $var ['hobby'];
             $i++;
         }
-        $data ['hobby'] = $hobby;
+        $data ['hobby'] = $hobby;*/
 
         $return = [
             'status' => '0',
