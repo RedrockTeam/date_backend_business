@@ -122,7 +122,16 @@ class AccountController extends Controller {
 
         $tel = $res ['phone'];
         $data    = [
-            'token' => $this->tokenCreate($tel)
+            'token'     => $this->tokenCreate($tel),
+            'id'        => $res ['id'],
+            'nickname'  => $res ['nickname'],
+            'avatar'    => $res ['avatar'],
+            'fans'      => $res ['fans_count'],
+            'role_id'   => $res ['role_id'],
+            'gender'    => $res ['gender'],
+            'signature' => $res ['signature'],
+            'scan'      => $res ['scan_count'],
+            'charm'     => $res ['charm']
         ];
 
         $return = [
@@ -137,14 +146,14 @@ class AccountController extends Controller {
      * 实名认证接口
      */
     public function realNameVerify () {
-        $tel      = I('post.phone');
+        $id       = I('post.id');
         $token    = I('post.token');
         $realName = I('post.realName');
         $school   = I('post.school');
         $stuCard  = I('post.stuCard');
 
-        $res = M('users')->where("phone = '$tel'")->find();
-        $user_id = $res ['id'];
+        $res = M('users')->where("id = '$id'")->find();
+        $tel = $res ['phone'];
 
         $res = $this->tokenCheck($tel,$token);
         if (!$res) {
@@ -156,7 +165,7 @@ class AccountController extends Controller {
         }
 
         $save = [
-            'user_id'   => $user_id,
+            'user_id'   => $id,
             'real_name' => $realName,
             'school'    => $school,
             'stuPic'    => $stuCard,
