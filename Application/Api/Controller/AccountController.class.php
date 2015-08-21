@@ -152,6 +152,7 @@ class AccountController extends Controller {
         foreach ($res as $var) {
             $i > 0 ? : ($hobby .= ";");
             $hobby .= $var ['hobby'];
+            $i++;
         }
         $data ['hobby'] = $hobby;
 
