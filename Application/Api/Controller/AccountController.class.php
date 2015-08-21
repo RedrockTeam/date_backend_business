@@ -39,7 +39,6 @@ class AccountController extends Controller {
      * 注册接口
      */
     public function register () {
-        $account  = I('post.account');
         $pwd      = I('post.password');
         $code     = I('post.code');
         $tel      = I('post.tel');
@@ -48,13 +47,6 @@ class AccountController extends Controller {
         $avatar   = I('post.avatar');
         $signature= I('post.signature');
         $hobby    = I('post.hobby');
-
-        //验证账户是否符合规则，判定账户是否已经存在
-        $accountCheck = $this->accountCheck($account);
-        if ($accountCheck ['error'] == "1") {
-            $return = $accountCheck ['data'];
-            $this->ajaxReturn($return);
-        }
 
         //验证密码是否符合规则
         $pwdCheck = $this->pwdCheck($pwd);
@@ -73,13 +65,13 @@ class AccountController extends Controller {
             $this->ajaxReturn($return);
         }
 
+
         $save = [
-            'account'  => $account,
             'password' => $this->password($pwd),
             'phone'    => $tel,
             'gender'   => $gender,
             'nickname' => $nickname,
-            'avatar'   => $this->imgTrans($avatar,2),
+            'avatar'   => $avatar,
             'signature'=> $signature
         ];
         M('users')->add($save);
@@ -104,13 +96,10 @@ class AccountController extends Controller {
 
         $db_user = M('users');
 
-        if ($this->userJudge($user)) {
-            $account = $user;
-            $res     = $db_user->where("account = '$account'")->find();
-        } else {
-            $tel = $user;
-            $res = $db_user->where("phone = '$tel'")->find();
-        }
+
+        $tel = $user;
+        $res = $db_user->where("phone = '$tel'")->find();
+
 
         if (!$res) {
             $return = [
@@ -131,13 +120,14 @@ class AccountController extends Controller {
             $this->ajaxReturn($return);
         }
 
-        $account = $res ['account'];
+        $tel = $res ['phone'];
         $data    = [
-            'token' => $this->tokenCreate($account)
+            'token' => $this->tokenCreate($tel)
         ];
 
         $return = [
             'status' => '0',
+            'info'   => 'Success',
             'data'   => $data
         ];
         $this->ajaxReturn($return);
@@ -147,16 +137,16 @@ class AccountController extends Controller {
      * 实名认证接口
      */
     public function realNameVerify () {
-        $account  = I('post.account');
+        $tel      = I('post.phone');
         $token    = I('post.token');
         $realName = I('post.realName');
         $school   = I('post.school');
         $stuCard  = I('post.stuCard');
 
-        $res = M('users')->where("account = '$account'")->find();
+        $res = M('users')->where("phone = '$tel'")->find();
         $user_id = $res ['id'];
 
-        $res = $this->tokenCheck($account,$token);
+        $res = $this->tokenCheck($tel,$token);
         if (!$res) {
             $return = [
                 'status' => '-109',
@@ -169,7 +159,7 @@ class AccountController extends Controller {
             'user_id'   => $user_id,
             'real_name' => $realName,
             'school'    => $school,
-            'stuPic'    => $this->imgTrans($stuCard,1),
+            'stuPic'    => $stuCard,
             'status'    => '0'
         ];
         M('verify')->add($save);
@@ -186,19 +176,9 @@ class AccountController extends Controller {
      * 密码找回接口
      */
     public function passwordFind () {
-        $account = I('post.account');
         $tel     = I('post.phone');
         $code    = I('post.code');
         $pwd     = I('post.password');
-
-        $phoneCheck = $this->phoneCheck($account,$tel);
-        if (!$phoneCheck) {
-            $return = [
-                'status' => '-107',
-                'info'   => 'Account And Phone Don\'t Match'
-            ];
-            $this->ajaxReturn($return);
-        }
 
         $codeCheck = $this->smsCheck($code,$tel);
         if (!$codeCheck) {
@@ -213,7 +193,7 @@ class AccountController extends Controller {
             'password' => $this->password($pwd)
         ];
 
-        M('users')->where("account = '$account'")->save($update);
+        M('users')->where("phone = '$tel'")->save($update);
 
         $return = [
             'status' => '0'
@@ -221,21 +201,6 @@ class AccountController extends Controller {
         $this->ajaxReturn($return);
     }
 
-    /**
-     * @param $account
-     * @param $tel
-     * @return bool
-     */
-    private function phoneCheck ($account, $tel) {
-        $param   = [
-            'account' => $account,
-            'phone'   => $tel
-        ];
-
-        $res = M('users')->where($param)->find();
-
-        return $res ? true : false;
-    }
 
      /**
      * @param $code
@@ -287,68 +252,6 @@ class AccountController extends Controller {
     }
 
     /**
-     * @param $account
-     * @return array
-     * 检验注册的账户是否符合相应的规范
-     */
-    private function accountCheck ($account) {
-        $head = substr($account, 0, 1);
-
-        if (!preg_match("/^[a-zA-Z/",$head)) {
-            $return = [
-                'error' => '1',
-                'data'  => [
-                    'status' => '-101',
-                    'info'   => 'Account First Must be a Letter'
-                ]
-            ];
-            return $return;
-        }
-
-        $length = strlen($account);
-
-        if ($length < 6) {
-            $return = [
-                'error' => '1',
-                'data'  => [
-                    'status' => '-102',
-                    'info'   => 'Account Length Must in 6-16'
-                ]
-            ];
-            return $return;
-        } else if ($length > 16) {
-            $return = [
-                'error' => '1',
-                'data'  => [
-                    'status' => '-102',
-                    'info'   => 'Account Length Must in 6-16'
-                ]
-            ];
-            return $return;
-        }
-
-        $users = M('users');
-
-        $res = $users->where("account = '$account'")->find();
-
-        if ($res) {
-            $return = [
-                'error' => '1',
-                'data'  => [
-                    'status' => '-103',
-                    'info'   => 'Account Already Exist'
-                ]
-            ];
-        } else {
-            $return = [
-                'error' => '0'
-            ];
-        }
-
-        return $return;
-    }
-
-    /**
      * @param $pwd
      * @return array
      * 用于检测密码是否符合规范
@@ -384,11 +287,11 @@ class AccountController extends Controller {
     }
 
     /**
-     * @param $account
+     * @param $tel
      * @return string
      * 用于token的创建
      */
-    private function tokenCreate ($account) {
+    private function tokenCreate ($tel) {
         $str    = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ!@#$%^&*()";
         $string = "";
 
@@ -400,64 +303,24 @@ class AccountController extends Controller {
         $token = md5(sha1($string));
 
         $update ['token'] = $token;
-        M('users')->where("account = '$account'")->save($update);
+        M('users')->where("phone = '$tel'")->save($update);
         return $token;
     }
 
     /**
-     * @param $user
-     * @return bool
-     * 用于检测Account还是Tel
-     */
-    private function userJudge ($user) {
-        $head = substr($user,0,1);
-
-        $res  = preg_match("/^[a-zA-Z]/",$head);
-        return $res ? true : false ;
-    }
-
-    /**
-     * @param $account
+     * @param $tel
      * @param $token
      * @return bool
      */
-    private function tokenCheck ($account, $token) {
+    private function tokenCheck ($tel, $token) {
         $param = [
-            'account' => $account,
-            'token'   => $token
+            'phone' => $tel,
+            'token' => $token
         ];
 
         $res = M('users')->where($param)->find();
 
         return $res ? true : false;
-    }
-
-    /**
-     * @param $img_base
-     * @return string
-     *
-     */
-    private function imgTrans ($img_base,$type) {
-        if ($type == 1) {
-            $filePath = "Public/stuCard/";
-        } else if ($type == 2){
-            $filePath = "Public/avatar/";
-        }
-
-        $fileName = date("YmdHis",time());
-
-        $randNum  = "";
-        $numList  = "1234567890";
-        for ($i = 1 ;$i < 10 ; $i++) {
-            $j = mt_rand(0,9);
-            $randNum .= $numList[$j];
-        }
-
-        $img_base = str_replace(" ","+",$img_base);
-        $img_code = base64_decode($img_base);
-        $file     = $filePath.$fileName."-".$randNum.".png";
-        file_put_contents($file,$img_code);
-        return $file;
     }
 
     /**
