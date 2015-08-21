@@ -6,7 +6,7 @@
  * Time: 16:12
  */
 
-namespace Home\Controller;
+namespace Api\Controller;
 use Think\Controller;
 
 class AccountController extends Controller {
