@@ -121,40 +121,9 @@ class AccountController extends Controller {
         }
 
         $tel = $res ['phone'];
-        $id  = $res ['id'];
         $data    = [
-            'token'     => $this->tokenCreate($tel),
-            'uid'        => $res ['id'],
-            'nickname'  => $res ['nickname'],
-            'avatar'    => $res ['avatar'],
-            'fans'      => $res ['fans_count'],
-            'role_id'   => $res ['role_id'],
-            'gender'    => $res ['gender'],
-            'signature' => $res ['signature'],
-            'scan'      => $res ['scan_count'],
-            'charm'     => $res ['charm']
+            'token' => $this->tokenCreate($tel)
         ];
-
-        /*$res = M('verify')->where("user_id = '$id' AND status = 1")->find();
-
-        if ($res) {
-            $data ['realname'] = $res ['real_name'];
-            $data ['school']   = $res ['school'];
-        } else {
-            $data ['realname'] = null;
-            $data ['school']   = null;
-        }
-
-        $res = M('user_hobby')->where("user_id = '$id'")->join("hobby ON hobby.id = user_hobby.hobby_id")->select();
-
-        $i = 0;
-        $hobby = "";
-        foreach ($res as $var) {
-            $i > 0 ? ($hobby .= ";") : true;
-            $hobby .= $var ['hobby'];
-            $i++;
-        }
-        $data ['hobby'] = $hobby;*/
 
         $return = [
             'status' => '0',
@@ -168,14 +137,14 @@ class AccountController extends Controller {
      * 实名认证接口
      */
     public function realNameVerify () {
-        $id       = I('post.id');
+        $tel      = I('post.phone');
         $token    = I('post.token');
         $realName = I('post.realName');
         $school   = I('post.school');
         $stuCard  = I('post.stuCard');
 
-        $res = M('users')->where("id = '$id'")->find();
-        $tel = $res ['phone'];
+        $res = M('users')->where("phone = '$tel'")->find();
+        $user_id = $res ['id'];
 
         $res = $this->tokenCheck($tel,$token);
         if (!$res) {
@@ -187,7 +156,7 @@ class AccountController extends Controller {
         }
 
         $save = [
-            'user_id'   => $id,
+            'user_id'   => $user_id,
             'real_name' => $realName,
             'school'    => $school,
             'stuPic'    => $stuCard,
