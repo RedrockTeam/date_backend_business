@@ -482,6 +482,7 @@
 			{
 				uid:,
 				token:,
+				page: ,
 			}
 			Response: 
 			{
@@ -494,6 +495,8 @@
 				        content: , //详情
 				        created_time: ,//发布时间
 				        date_type: ,//约会类型
+				        cost_type: ,//话费类型
+				        date_place: , //约会地点
 				        praise: ,//点赞
 				        comment_num: ,//评论数量
 				        apply_num: ,//报名人数
@@ -519,6 +522,7 @@
 			{
 				uid:,
 				token:,
+				date_id:
 			}
 			Response: 
 			{

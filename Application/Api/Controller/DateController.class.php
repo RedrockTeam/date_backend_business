@@ -1,9 +1,12 @@
 <?php
 namespace Api\Controller;
+use Api\Model\CommentModel;
+use Api\Model\DateModel;
 use Think\Controller;
 
 class DateController extends BaseController {
 
+    //获取约会类型
     public function type() {
         $type_id = I('post.');
         if($type_id) {
@@ -20,6 +23,20 @@ class DateController extends BaseController {
                     ->select();
             }
         }
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功',
+            'data' => $data
+        ]);
+    }
+
+    //获取约列表
+    public function detaildate() {
+        $date_id = I('post.date_id');
+        $date = new DateModel();
+        $data = $date->detaildate($date_id);
+        $comment = new CommentModel();
+        $data['date_comment'] = $comment->getComment(['date_id' => $date_id, $page = 1]);
         $this->ajaxReturn([
             'status' => 0,
             'info' => '成功',
