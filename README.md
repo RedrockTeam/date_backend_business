@@ -66,7 +66,29 @@
 			
 3. 约会类型列表
 
-		- 待定
+		- URL: api/public/datetype
+		Request: 
+				{
+					type_id : ,//为空返回所有导航, type_id为一级导航返回所属二级导航
+				}
+		Response:
+				{
+					status: 0,
+					info: '成功',
+					data: 
+					[
+						{
+							type_id:1
+							type_name:运动,
+							type_son: [
+										{type_id:6, type_name:篮球},
+										{.....}
+										]
+						},
+						{.....}
+						
+					]
+				}
 		
 4. 学校
 
@@ -91,6 +113,7 @@
 						}
 				]
 			}
+			
 			
 ##用户接口
 
