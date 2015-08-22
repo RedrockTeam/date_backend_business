@@ -49,7 +49,7 @@ class AccountController extends Controller {
         $hobby    = I('post.hobby');
 
         $telCheck = $this->telCheck($tel);
-        if (!$telCheck) {
+        if ($telCheck) {
             $return = [
                 'status' => '-103',
                 'info'   => 'Tel Already Exist'
@@ -385,8 +385,21 @@ class AccountController extends Controller {
         return true;
     }
 
+    /**
+     * @param $tel
+     * @return bool
+     */
     private function telCheck ($tel) {
         $res = M('users')->where("phone = '$tel'")->find();
         return $res ? true : false;
+    }
+
+    public function telDelete () {
+        $tel = I('post.tel');
+        M('users')->where("phone = '$tel'")->delete();
+        $return = [
+            'status' => '0'
+        ];
+        $this->ajaxReturn($return);
     }
 }
