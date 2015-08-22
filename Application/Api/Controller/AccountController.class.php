@@ -88,7 +88,7 @@ class AccountController extends Controller {
         $res = M('users')->where($save)->find();
         $user_id = $res ['id'];
 
-        if (!is_null($hobby)) {
+        if ($hobby) {
             $this->hobby($hobby,$user_id);
         }
 
