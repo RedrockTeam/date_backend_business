@@ -48,6 +48,15 @@ class AccountController extends Controller {
         $signature= I('post.signature');
         $hobby    = I('post.hobby');
 
+        $telCheck = $this->telCheck($tel);
+        if (!$telCheck) {
+            $return = [
+                'status' => '-103',
+                'info'   => 'Tel Already Exist'
+            ];
+            $this->ajaxReturn($return);
+        }
+
         //验证密码是否符合规则
         $pwdCheck = $this->pwdCheck($pwd);
         $error = $pwdCheck ['error'];
@@ -374,5 +383,10 @@ class AccountController extends Controller {
             $db_hobby->add($save);
         }
         return true;
+    }
+
+    private function telCheck ($tel) {
+        $res = M('users')->where("phone = '$tel'")->find();
+        return $tel ? false : true;
     }
 }
