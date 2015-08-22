@@ -50,7 +50,7 @@ class AccountController extends Controller {
 
         //验证密码是否符合规则
         $pwdCheck = $this->pwdCheck($pwd);
-        if ($pwdCheck ['error'] == '1') {
+        if ($pwdCheck ['error'] == false) {
             $return = $pwdCheck ['data'];
             $this->ajaxReturn($return);
         }
@@ -292,7 +292,7 @@ class AccountController extends Controller {
 
         if ($length < 6) {
             $return = [
-                'error' => '1',
+                'error' => false,
                 'data'  => [
                     'status' => '-104',
                     'info'   => 'Password Length Must in 6-20'
@@ -301,7 +301,7 @@ class AccountController extends Controller {
             return $return;
         } else if ($length > 20) {
             $return = [
-                'error' => '1',
+                'error' => false,
                 'data'  => [
                     'status' => '-104',
                     'info'   => 'Password Length Must in 6-20'
@@ -311,7 +311,7 @@ class AccountController extends Controller {
         }
 
         $return = [
-            'error' => '0'
+            'error' => true
         ];
 
         return $return;
