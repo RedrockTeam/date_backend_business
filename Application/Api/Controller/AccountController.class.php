@@ -264,7 +264,7 @@ class AccountController extends Controller {
 
         $response = curl_exec($ch);
         curl_close($ch);
-        $response = json_decode($response);
+        $response = json_decode($response,true);
         $status   = $response ['status'];
         if ($status == 200) {
             return true;
