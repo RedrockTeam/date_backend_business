@@ -387,6 +387,6 @@ class AccountController extends Controller {
 
     private function telCheck ($tel) {
         $res = M('users')->where("phone = '$tel'")->find();
-        return $tel ? false : true;
+        return $res ? false : true;
     }
 }
