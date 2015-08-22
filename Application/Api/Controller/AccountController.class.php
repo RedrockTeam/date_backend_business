@@ -50,7 +50,8 @@ class AccountController extends Controller {
 
         //验证密码是否符合规则
         $pwdCheck = $this->pwdCheck($pwd);
-        if ($pwdCheck ['error'] == false) {
+        $error = $pwdCheck ['error'];
+        if (!$error) {
             $return = $pwdCheck ['data'];
             $this->ajaxReturn($return);
         }
