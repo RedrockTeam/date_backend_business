@@ -14,6 +14,8 @@ return array(
         'public/register' => 'Account/register',
         'public/school'   => 'Test/school',//学校
 
+        'test/delAccount' => 'Account/telDelete',
+
         'account/verify'  => 'Account/realNameVerify',//实名认证
         'account/pwdfind' => 'Account/passwordFind',//密码找回
 
