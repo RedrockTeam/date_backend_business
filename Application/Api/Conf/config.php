@@ -13,7 +13,7 @@ return array(
         'public/login'    => 'Account/login',//登录
         'public/register' => 'Account/register',
         'public/school'   => 'Test/school',//学校
-
+        'public/datetype' => 'Date/type', //收藏约
         'test/delAccount' => 'Account/telDelete',
         'test/test'       => 'Account/test',
 
