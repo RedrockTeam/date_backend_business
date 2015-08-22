@@ -411,4 +411,13 @@ class AccountController extends Controller {
         ];
         $this->ajaxReturn($return);
     }
+
+    public function test () {
+        $num = mt_rand(0,14);
+        $avatar = $this->avatar[$num];
+        $return = [
+            'avatar' => $avatar
+        ];
+        $this->ajaxReturn($return);
+    }
 }
