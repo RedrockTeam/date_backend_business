@@ -93,7 +93,8 @@ class AccountController extends Controller {
         }
 
         $this->ajaxReturn([
-            'status' => '0'
+            'status' => '0',
+            'info'   => '你好，你已经成功注册约炮平台！！！'
         ]);
     }
 
