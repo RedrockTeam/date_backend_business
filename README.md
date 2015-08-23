@@ -667,9 +667,10 @@
 				     discover_id: ,
 				     discover_title: ,
 				     discover_caption: , //副标题
-				     discover_picture: ,//图片
-				     discover_time: ,//截止时间
-				     discover_praise: ,//点赞数
+				     discover_picture: , //图片
+				     discover_time: , //截止时间
+				     discover_praise: , //点赞数
+				     praise_status: , //用户是否点赞, 1是0否
                      discover_status: //发现状态, 0 结束 1 进行中
 				     },
 				    {.......}    

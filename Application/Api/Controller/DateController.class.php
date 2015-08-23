@@ -1,5 +1,6 @@
 <?php
 namespace Api\Controller;
+use Api\Model\CollectionModel;
 use Api\Model\CommentModel;
 use Api\Model\DateModel;
 use Think\Controller;
@@ -30,8 +31,8 @@ class DateController extends BaseController {
         ]);
     }
 
-    //获取约列表
-    public function detaildate() {
+    //获取约详情
+    public function detailDate() {
         $date_id = I('post.date_id');
         $date = new DateModel();
         $data = $date->detaildate($date_id);
@@ -42,5 +43,29 @@ class DateController extends BaseController {
             'info' => '成功',
             'data' => $data
         ]);
+    }
+
+    //收藏约
+    public function collectDate() {
+        $input = I('post.');
+        if(!is_numeric($input['uid']) || !is_numeric($input['date_id'])) {
+            $this->ajaxReturn([
+                'status' => 1,
+                'info' => '非法数据'
+            ]);
+        }
+        $collection = new CollectionModel();
+        if($collection->addCollection($input)) {
+            $this->ajaxReturn([
+                'status' => 0,
+                'info' => '成功'
+            ]);
+        } else {
+            $this->ajaxReturn([
+                'status' => 1,
+                'info' => '你已经收藏过此约会'
+            ]);
+        }
+
     }
 }
