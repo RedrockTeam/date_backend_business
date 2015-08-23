@@ -7,6 +7,7 @@ class DateModel extends Model {
 
     protected $tableName  = 'date';
 
+    //获取自己发布的约
     public function getCreatedDate($input) {
         $map = [
             'date.user_id' => $input['uid']
@@ -20,5 +21,20 @@ class DateModel extends Model {
                     ->select();
     }
 
+    //获取约详情
+    public function detaildate($date_id) {
+        $date = $this->where(['id' => $date_id])
+                     ->field('id as date_id, title, date_type, content, date_time, date_place, date_time, cost_type, people_limit, gender_limit, status as date_status, user_id as uid')
+                     ->find();
+        $userinfo = M('users')->where(['id' => $date['uid']])->field('avatar, gender, role_id')->find();
+        $data = array_merge($date, $userinfo);
+        $data['school_limit'] = M('date_limit')->where(['date_id' => $date_id])
+                                               ->join('JOIN school ON date_limit.school_id = school.id')
+                                               ->field('school_id, school_name')
+                                               ->select();
+        return $data;
+    }
+
+    //
 
 }

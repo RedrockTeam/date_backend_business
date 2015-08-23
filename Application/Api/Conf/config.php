@@ -13,7 +13,7 @@ return array(
         'public/login'    => 'Account/login',//登录
         'public/register' => 'Account/register',
         'public/school'   => 'Test/school',//学校
-
+        'public/datetype' => 'Date/type', //约类型
         'test/delAccount' => 'Account/telDelete',
         'test/test'       => 'Account/test',
 
@@ -23,13 +23,12 @@ return array(
         //用户接口
         'user/info'           => 'Users/info', //获取个人信息
         'user/collection'     => 'Collection/collection', //获取收藏列表
-        'user/getletter'      => 'Test/getletter', //获取私信
-        'user/postletter'     => 'Test/postletter', //发出私信
+        'user/getletter'      => 'Test/getletter', //获取私信 todo
+        'user/postletter'     => 'Test/postletter', //发出私信 todo
         'user/mydatelist'     => 'Users/createdDate', //获取发起的约
         'user/joineddatelist' => 'Users/joinedDate', //获取参加的约
         'user/care'           => 'Users/care', //我关注的人
         'user/careme'         => 'Users/caremMe', //关注我的人
-        'user/userverify'     => 'Test/userverify', //实名认证
         'user/editavatar'     => 'Users/editAvatar', //修改头像
         'user/editsignature'  => 'Users/editSignature', //修改个性签名
         'user/edithobby'      => 'Users/editHobby', //修改爱好
@@ -41,7 +40,7 @@ return array(
 
         //约会接口
         'date/datelist'    => 'Test/datelist', //获取约列表
-        'date/datelist'    => 'Test/detaildate', //获取约详情
+        'date/detaildate'    => 'Date/detaildate', //获取约详情
         'date/createdate'  => 'Test/createdate', //发布约
         'date/judgedate'   => 'Test/judgedate', //接受/拒绝约
         'date/applydate'   => 'Test/applydate', //报名约
@@ -49,10 +48,10 @@ return array(
     //    'date/judgedate'   => 'Test/judgedate', //评论
 
         //发现接口
-        'discover/discoverlist'    => 'Discover/discoverlist', //获取发现列表
-        'discover/detaildiscover'  => 'Test/detaildiscover', //发现详情
-        'discover/applydiscover'   => 'Test/applydiscover', //参加活动
-        'discover/creatediscover'  => 'Test/applydiscover', //参加活动
+        'discover/discoverlist'    => 'Discover/discoverList', //获取发现列表
+        'discover/detaildiscover'  => 'Discover/detaildDiscover', //发现详情
+        'discover/applydiscover'   => 'Discover/applyDiscover', //参加活动
+        'discover/creatediscover'  => 'Discover/createDiscover', //发布活动
  //       'discover/discoverlist'    => 'Test/搜索', //搜索
 
 ]

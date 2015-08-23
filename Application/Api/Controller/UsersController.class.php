@@ -10,8 +10,7 @@ class UsersController extends BaseController
 {
 
     //获取个人信息
-    public function info()
-    {
+    public function info() {
         $input = I('post.', '');
         if ($input['uid'] == $input['get_uid']) {
             $verify_self = true;
@@ -101,8 +100,7 @@ class UsersController extends BaseController
     }
 
     //关注数
-    public function careNum()
-    {
+    public function careNum() {
         $input = I('post.');
         $concern = new ConcernModel();
         $data = [
@@ -117,8 +115,7 @@ class UsersController extends BaseController
     }
 
     //获取发起的约会
-    public function createdDate()
-    {
+    public function createdDate() {
         $input = I('post.');
         $date = new DateModel();
         $data = $date->getCreatedDate($input);
@@ -130,8 +127,7 @@ class UsersController extends BaseController
     }
 
     //获取参加的约会
-    public function joinedDate()
-    {
+    public function joinedDate() {
         $input = I('post.');
         $date = new ApplyModel();
         $data = $date->getJoinedDate($input);
@@ -143,14 +139,12 @@ class UsersController extends BaseController
     }
 
     //修改头像
-    public function editAvatar()
-    {
+    public function editAvatar() {
         //todo 七牛
     }
 
     //修改个性签名
-    public function editSignature()
-    {
+    public function editSignature() {
         $input = I('post.');
         $user = new UsersModel();
         if ($user->editSignature($input)) {
@@ -166,8 +160,7 @@ class UsersController extends BaseController
     }
 
     //修改爱好
-    public function editHobby()
-    {
+    public function editHobby() {
         $input = I('post.');
         $user_hobby = new UserHobbyModel();
         if ($user_hobby->editHobby($input)) {
@@ -200,8 +193,7 @@ class UsersController extends BaseController
     }
 
     //检查互相关注
-    private function checkConcern($input)
-    {
+    private function checkConcern($input) {
         $concern = new ConcernModel();
         $map1 = [
             'from' => $input['uid'],
@@ -217,9 +209,7 @@ class UsersController extends BaseController
         if ($num1 == 1 && $num2 == 1) {
             return true;
         }
-
         return false;
-
     }
 
 }
