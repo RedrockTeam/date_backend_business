@@ -3,6 +3,7 @@ namespace Api\Controller;
 use Api\Model\CollectionModel;
 use Api\Model\CommentModel;
 use Api\Model\DateModel;
+use Api\Model\UsersModel;
 use Think\Controller;
 
 class DateController extends BaseController {
@@ -68,4 +69,81 @@ class DateController extends BaseController {
         }
 
     }
+
+    //发布约
+    public function createDate() {
+
+    }
+
+    //报名约
+    public function applyDate() {
+        $input = I('post.');
+        $result = $this->checkCondition($input['date_id'], $input['uid']);
+        switch($result) {
+            case 1:
+                $status = 0;
+                $info = '成功';
+                break;
+            case 2:
+                $status = 1;
+                $info = '该约会已过期';
+                break;
+            case 3:
+                $status = 1;
+                $info = '约会人数已满';
+                break;
+            case 4:
+                $status = 0;
+                $info = '不符合性别限制';
+                break;
+            case 5:
+                $status = 0;
+                $info = '成功';
+                break;
+            case 6:
+                $status = 1;
+                $info = '商家不能发布约, 只能发布发现';
+                break;
+            default:
+                $status = 1001;
+                $info = '系统开小差了';
+                break;
+        }
+        $this->ajaxReturn([
+            'status' => $status,
+            'info' => $info
+        ]);
+    }
+
+    private function checkCondition($date_id, $uid) {
+        $date = new DateModel();
+        $date_info = $date->dateLimit($date_id);
+        $user = new UsersModel();
+        $user_info = $user->getUserLimitInfo($uid);
+        //过期检查2
+        if(time() > $date_info['create_time'] || $date_info['date_status'] != 2) {
+            return 2;
+        }
+        //约会人数满员3
+        if($date_info['apply_num'] >= $date_info['people_limit']) {
+            return 3;
+        }
+        //性别检查4
+        if($user_info['gender'] != 0 && $user_info['gender'] != $date_info['gender_limit']) {
+            return 4;
+        }
+        //学校检查5
+        if($user_info['school_id'] == null || $user_info['school_id'] == '') {
+            return 5;
+        }
+        if($date_info['school_limit'] != null) {
+            foreach($date_info['school_limit'] as list($v)){
+                if($v == $user_info['school_id']) {
+                    return 5;
+                }
+            }
+        }
+        return 1;
+    }
+
 }

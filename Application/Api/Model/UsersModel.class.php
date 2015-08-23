@@ -54,4 +54,15 @@ class UsersModel extends Model {
         return true;
     }
 
+    //获取用户在约会中所需的限制信息
+    public function getUserLimitInfo($uid) {
+        $map = ['id' => $uid];
+        $data = $this->where($map)->field('gender, role_id')->find();
+        $data['school_id'] = M('verify')->where($map)->getField('school_id');
+        return $data;
+    }
+
+
+
+
 }

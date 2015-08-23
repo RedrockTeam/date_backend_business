@@ -539,6 +539,7 @@
 				        date_time: ,//约会时间
 				        cost_type: ,//消费方式
 				        people_limit: ,//人数限制
+				        apply_num: ,//报名人数
 				        gender_limit: ,
 				        school_limit: [{school_id:1,school_name:"重邮"}],
 				        date_comment:[
