@@ -560,7 +560,7 @@
 				            ]
 				        }
 				        ],
-				        date_status: ,
+				        date_status: ,//0结束, 1成功, 2受理中
 				        uid: ,
 				        avatar: ,
 				        gender: ,

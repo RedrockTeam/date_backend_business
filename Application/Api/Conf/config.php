@@ -40,7 +40,7 @@ return array(
 
         //约会接口
         'date/datelist'    => 'Test/datelist', //获取约列表
-        'date/datelist'    => 'Test/detaildate', //获取约详情
+        'date/datelist'    => 'Date/detaildate', //获取约详情
         'date/createdate'  => 'Test/createdate', //发布约
         'date/judgedate'   => 'Test/judgedate', //接受/拒绝约
         'date/applydate'   => 'Test/applydate', //报名约
