@@ -40,12 +40,12 @@ return array(
 
         //约会接口
         'date/datelist'    => 'Test/datelist', //获取约列表
-        'date/detaildate'    => 'Date/detaildate', //获取约详情
-        'date/createdate'  => 'Test/createdate', //发布约
+        'date/detaildate'    => 'Date/detailDate', //获取约详情
+        'date/createdate'  => 'Date/createDate', //发布约
         'date/judgedate'   => 'Test/judgedate', //接受/拒绝约
         'date/applydate'   => 'Test/applydate', //报名约
-        'date/collectdate' => 'Test/collectdate', //收藏约
-    //    'date/judgedate'   => 'Test/judgedate', //评论
+        'date/collectdate' => 'Date/collectDate', //收藏约
+        'date/judgedate'   => 'Test/judgedate', //评论
 
         //发现接口
         'discover/discoverlist'    => 'Discover/discoverList', //获取发现列表

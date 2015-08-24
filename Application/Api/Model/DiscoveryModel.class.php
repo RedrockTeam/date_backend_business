@@ -7,7 +7,7 @@ class DiscoveryModel extends Model {
 
     protected $tableName  = 'discover';
 
-    public function getDiscoverList($page) {
+    public function getDiscoverList($page, $uid) {
         $limit = 10;
         $page = $page > 0? $page : 1;
         $offset = ($page - 1) * $limit;
@@ -15,10 +15,18 @@ class DiscoveryModel extends Model {
             'status' => 1
         ];
         $field = 'id as discover_id, title as discover_title, caption as discover_caption, picture as discover_picture, time as discover_time, praise as discover_praise, status as discover_status';
-        return $this->where($map)
+        $data = $this->where($map)
                     ->limit($offset, $limit)
                     ->field($field)
                     ->select();
+        foreach($data as &$value) {
+            if(M('discover_praise')->where(['user_id' => $uid, 'discover_id' => $value['discover_id']])->count()) {
+                $value['praise_status'] = 1;
+            } else {
+                $value['praise_status'] = 0;
+            }
+        }
+        return $data;
     }
 
     public function getDiscover($discover_id) {
