@@ -53,7 +53,7 @@ return array(
         'discover/detaildiscover'  => 'Discover/detaildDiscover', //发现详情
         'discover/applydiscover'   => 'Discover/applyDiscover', //参加活动
         'discover/creatediscover'  => 'Discover/createDiscover', //发布活动
-        'discover/commentdiscover'  => 'Discover/commentDiscover', //发布活动 todo
+        'discover/commentdiscover'  => 'Discover/commentDiscover', //评论发现
  //       'discover/discoverlist'    => 'Test/搜索', //搜索
 
 ]
