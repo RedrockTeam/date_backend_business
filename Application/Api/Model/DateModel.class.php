@@ -22,7 +22,7 @@ class DateModel extends Model {
     }
 
     //获取约详情
-    public function detaildate($date_id) {
+    public function detaildate($date_id, $uid) {
         $date = $this->where(['id' => $date_id])
                      ->field('id as date_id, title, date_type, content, date_time, date_place, cost_type, people_limit, gender_limit, status as date_status, user_id as uid, apply_num')
                      ->find();
@@ -32,6 +32,8 @@ class DateModel extends Model {
                                                ->join('JOIN school ON date_limit.school_id = school.id')
                                                ->field('school_id, school_name')
                                                ->select();
+        $user_date_status = M('apply')->where(['date_id' => $date_id, 'user_id' => $uid])->getField('status');
+        $data['user_date_status'] = $user_date_status? $user_date_status:4;
         return $data;
     }
 

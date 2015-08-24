@@ -36,8 +36,9 @@ class DateController extends BaseController {
     //获取约详情
     public function detailDate() {
         $date_id = I('post.date_id');
+        $uid = I('post.uid');
         $date = new DateModel();
-        $data = $date->detaildate($date_id);
+        $data = $date->detaildate($date_id, $uid);
         $comment = new CommentModel();
         $data['date_comment'] = $comment->getComment(['date_id' => $date_id, $page = 1]);
         $this->ajaxReturn([
