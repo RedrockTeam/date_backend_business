@@ -112,7 +112,7 @@ class DateController extends BaseController {
                 $info = '不符合学校限制';
                 break;
             case 6:
-                $status = 1;
+                $status = -3;
                 $info = '商家不能发布约, 只能发布发现';
                 break;
             default:
@@ -123,6 +123,30 @@ class DateController extends BaseController {
         $this->ajaxReturn([
             'status' => $status,
             'info' => $info
+        ]);
+    }
+
+    //评论约
+    public function commentDate() {
+        $input = I('post.');
+        if($input['content'] == null || $input['content'] == '') {
+            $this->ajaxReturn([
+                'status' => 1,
+                'info' => '评论内容不能为空'
+            ]);
+        }
+        $data = [
+            'user_id' => $input['uid'],
+            'date_id' => $input['date_id'],
+            'content' => $input['content'],
+            'time'    => time(),
+            'father_id' => $input['father_id']? $input['father_id']:0,
+            'status' => 1
+        ];
+        M('comment')->add($data);
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功'
         ]);
     }
 

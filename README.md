@@ -665,7 +665,20 @@
 
 7. 评论
     
-    - ...
+    - URL: api/date/commentdate
+    
+                  Request: 
+                  {
+                      uid: ,
+                      token: ,
+                      date_id: ,
+                      father_id: ,//默认为0, 对楼层进行回复时带上当前 **层主** comment_id, 类似贴吧楼中楼实现
+                  }
+                  Response: 
+                  {
+                      status:0,
+                      info:"成功",    
+                  }
 
 ##发现接口
 1. 获取发现列表

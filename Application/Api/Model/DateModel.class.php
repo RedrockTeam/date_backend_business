@@ -24,7 +24,7 @@ class DateModel extends Model {
     //获取约详情
     public function detaildate($date_id, $uid) {
         $date = $this->where(['id' => $date_id])
-                     ->field('id as date_id, title, date_type, content, date_time, date_place, cost_type, people_limit, gender_limit, status as date_status, user_id as uid, apply_num')
+                     ->field('id as date_id, title, date_type, content, date_time, date_place, cost_type, limit_num as people_limit, gender_limit, status as date_status, user_id as uid, apply_num')
                      ->find();
         $userinfo = M('users')->where(['id' => $date['uid']])->field('avatar, gender, role_id')->find();
         $data = array_merge($date, $userinfo);
@@ -40,7 +40,7 @@ class DateModel extends Model {
     //获取约限制
     public function dateLimit($date_id) {
         $data = $this->where(['id' => $date_id])
-                     ->field('date_time, people_limit, gender_limit, status as date_status, user_id as uid, promise_num')
+                     ->field('date_time, limit_num as people_limit, gender_limit, status as date_status, user_id as uid, promise_num')
                      ->find();
         $data['school_limit'] = M('date_limit')->where(['date_id' => $date_id])
                                                 ->join('JOIN school ON date_limit.school_id = school.id')

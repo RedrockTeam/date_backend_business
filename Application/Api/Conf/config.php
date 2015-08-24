@@ -43,15 +43,17 @@ return array(
         'date/detaildate'    => 'Date/detailDate', //获取约详情
         'date/createdate'  => 'Date/createDate', //发布约
         'date/judgedate'   => 'Test/judgedate', //接受/拒绝约
-        'date/applydate'   => 'Test/applydate', //报名约
+        'date/applydate'   => 'Date/applyDate', //报名约
         'date/collectdate' => 'Date/collectDate', //收藏约
-        'date/judgedate'   => 'Test/judgedate', //评论
+        'date/commentdate'   => 'Date/commentDate', //评论
+        'date/test'   => 'Date/test', //评论
 
         //发现接口
         'discover/discoverlist'    => 'Discover/discoverList', //获取发现列表
         'discover/detaildiscover'  => 'Discover/detaildDiscover', //发现详情
         'discover/applydiscover'   => 'Discover/applyDiscover', //参加活动
         'discover/creatediscover'  => 'Discover/createDiscover', //发布活动
+        'discover/commentdiscover'  => 'Discover/commentDiscover', //发布活动 todo
  //       'discover/discoverlist'    => 'Test/搜索', //搜索
 
 ]
