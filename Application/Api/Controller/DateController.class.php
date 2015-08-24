@@ -1,5 +1,6 @@
 <?php
 namespace Api\Controller;
+use Api\Model\ApplyModel;
 use Api\Model\CollectionModel;
 use Api\Model\CommentModel;
 use Api\Model\DateModel;
@@ -83,6 +84,15 @@ class DateController extends BaseController {
             case 1:
                 $status = 0;
                 $info = '成功';
+                $apply = new ApplyModel();
+                $data = [
+                    'date_id' => $input['date_id'],
+                    'user_id' => $input['uid'],
+                    'time' => time(),
+                    'status' => 2
+                ];
+                $apply->add($data);
+                M('date')->where(['date_id' => $input['date_id']])->setInc('apply_num');
                 break;
             case 2:
                 $status = 1;
@@ -93,12 +103,12 @@ class DateController extends BaseController {
                 $info = '约会人数已满';
                 break;
             case 4:
-                $status = 0;
+                $status = 1;
                 $info = '不符合性别限制';
                 break;
             case 5:
-                $status = 0;
-                $info = '成功';
+                $status = 1;
+                $info = '不符合学校限制';
                 break;
             case 6:
                 $status = 1;
@@ -125,7 +135,7 @@ class DateController extends BaseController {
             return 2;
         }
         //约会人数满员3
-        if($date_info['apply_num'] >= $date_info['people_limit']) {
+        if($date_info['promise_num'] >= $date_info['people_limit']) {
             return 3;
         }
         //性别检查4
@@ -142,6 +152,10 @@ class DateController extends BaseController {
                     return 5;
                 }
             }
+        }
+        //检查用户角色
+        if($user_info['role_id'] > 2) {
+            return 6;
         }
         return 1;
     }
