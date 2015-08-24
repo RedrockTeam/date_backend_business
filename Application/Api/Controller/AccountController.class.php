@@ -9,33 +9,11 @@
 namespace Api\Controller;
 use Think\Controller;
 
-class AccountController extends Controller {
+class AccountController extends BaseController {
     private $appKey = "9bec9e05d8bc";
     private $smsCheckUrl = "https://api.sms.mob.com/sms/verify";
 
     private $avatar_arr = ['http://7xjdz6.com2.z0.glb.qiniucdn.com/S_B6d5d81a1e242154bc696eaf75327b0f1aed2d05b19230-j4kRdg_fw658.jpg?imageView2/0/w/400','http://7xjdz6.com2.z0.glb.qiniucdn.com/S_B7cb3fa8a1ac4e067a985d150aef56f5a4084b7a25e3cd-18xOsM_fw658.jpg?imageView2/0/w/400','http://7xjdz6.com2.z0.glb.qiniucdn.com/S_B72443a242121d3d5a3404307a5184a10d3f7a76a43207-RxUSzX_fw658.jpg?imageView2/0/w/400','http://7xjdz6.com2.z0.glb.qiniucdn.com/S_Bc148b676fd10daa9a64b6e8999d83f9e4c5ecaac5dc54-7TRqdP_fw658.jpg?imageView2/0/w/400','http://7xjdz6.com2.z0.glb.qiniucdn.com/S_Bc3ad72068bce22eb5be683225babfc54e9e458e217621-CsY8gD_fw658.jpg?imageView2/0/w/400','http://7xjdz6.com2.z0.glb.qiniucdn.com/S_F29210bdb497e132cc163ad10549de55445c6a8c121473-rHycIk_fw658.jpg?imageView2/0/w/400','http://7xjdz6.com2.z0.glb.qiniucdn.com/S_F09abe50a71e7dfc1ea1b176a8f827a75fe6df2aa8d00-IASSny_fw658.jpg?imageView2/0/w/400','http://7xjdz6.com2.z0.glb.qiniucdn.com/S_Fde4f5566b00fdbbee9d12046cb6aa836b7d79f89d723-bB29dD_fw658.jpg?imageView2/0/w/400','http://7xjdz6.com2.z0.glb.qiniucdn.com/S_Ff78d88972a74fbb5f34dd768c681e1573ff963e234f36-BKYuOG_fw658.jpg?imageView2/0/w/400','http://7xjdz6.com2.z0.glb.qiniucdn.com/S_Fc6a74619b692f286dc9d2b0dc8636bbb6a2e45971026f-iTXY8S_fw658.jpg?imageView2/0/w/400','http://7xjdz6.com2.z0.glb.qiniucdn.com/S_Ffc1f7e1c99a0c4bb556b26ad16c6f1bf7d5d969519000-WfoOak_fw658.jpg?imageView2/0/w/400','http://7xjdz6.com2.z0.glb.qiniucdn.com/S_Faf401a198398e4c1021c463a029e179b9ff556882c50e-i7s57t_fw658.jpg?imageView2/0/w/400','http://7xjdz6.com2.z0.glb.qiniucdn.com/S_F6e6bc48e4f322b56d8edc3a5fd9db80fcd6e17129fe7-LHN0fm_fw658.jpg?imageView2/0/w/400','http://7xjdz6.com2.z0.glb.qiniucdn.com/S_F936e52cdda706160358cc0772431002b9cad882d82f3-Y3xOTe_fw658.jpg?imageView2/0/w/400','http://7xjdz6.com2.z0.glb.qiniucdn.com/S_Fd61f5ef17ebc553a1612ea4d940d76c3e7b34fd7121ee-ewJZ63_fw658.jpg?imageView2/0/w/400'];
-
-    public function _initialize () {
-        if (!$this->checkMethod()) {
-            $data = [
-                "status" => "-400",
-                "info"   => "Please Use Post"
-            ];
-            $this->ajaxReturn($data);
-        }
-    }
-
-    private function checkMethod () {
-        return $_SERVER['REQUEST_METHOD'] === "POST";
-    }
-
-    public function _empty () {
-        $data = [
-            'status' => '-400',
-            'info'   => 'Not Found'
-        ];
-        $this->ajaxReturn($data);
-    }
 
     /**
      * 注册接口
@@ -334,43 +312,6 @@ class AccountController extends Controller {
         ];
 
         return $return;
-    }
-
-    /**
-     * @param $tel
-     * @return string
-     * 用于token的创建
-     */
-    private function tokenCreate ($tel) {
-        $str    = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ!@#$%^&*()";
-        $string = "";
-
-        for ($i = 0;$i < 16;$i++) {
-            $num     = mt_rand(0,71);
-            $string .= $str [$num];
-        }
-
-        $token = md5(sha1($string));
-
-        $update ['token'] = $token;
-        M('users')->where("phone = '$tel'")->save($update);
-        return $token;
-    }
-
-    /**
-     * @param $tel
-     * @param $token
-     * @return bool
-     */
-    private function tokenCheck ($tel, $token) {
-        $param = [
-            'phone' => $tel,
-            'token' => $token
-        ];
-
-        $res = M('users')->where($param)->find();
-
-        return $res ? true : false;
     }
 
     /**
