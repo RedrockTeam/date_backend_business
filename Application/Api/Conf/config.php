@@ -9,11 +9,11 @@ return array(
     'URL_ROUTER_ON'   => true,
     'URL_ROUTE_RULES' => [
         //公共
-        'public/banner'   => 'Banner/index',//广告位
+        'public/banner'   => 'Public/banner',//广告位
         'public/login'    => 'Account/login',//登录
         'public/register' => 'Account/register',
-        'public/school'   => 'Test/school',//学校
-        'public/datetype' => 'Date/type', //约类型
+        'public/school'   => 'Public/school',//学校
+        'public/datetype' => 'Public/type', //约类型
         'test/delAccount' => 'Account/telDelete',
         'test/test'       => 'Account/test',
 
@@ -39,22 +39,21 @@ return array(
 
 
         //约会接口
-        'date/datelist'    => 'Test/datelist', //获取约列表
-        'date/detaildate'    => 'Date/detailDate', //获取约详情
+        'date/datelist'    => 'Test/datelist', //获取约列表 todo
+        'date/detaildate'  => 'Date/detailDate', //获取约详情
         'date/createdate'  => 'Date/createDate', //发布约
-        'date/judgedate'   => 'Test/judgedate', //接受/拒绝约
+        'date/judgedate'   => 'Test/judgedate', //接受/拒绝约 todo
         'date/applydate'   => 'Date/applyDate', //报名约
         'date/collectdate' => 'Date/collectDate', //收藏约
-        'date/commentdate'   => 'Date/commentDate', //评论
-        'date/test'   => 'Date/test', //评论
+        'date/commentdate' => 'Date/commentDate', //评论
 
         //发现接口
         'discover/discoverlist'    => 'Discover/discoverList', //获取发现列表
         'discover/detaildiscover'  => 'Discover/detaildDiscover', //发现详情
         'discover/applydiscover'   => 'Discover/applyDiscover', //参加活动
         'discover/creatediscover'  => 'Discover/createDiscover', //发布活动
-        'discover/commentdiscover'  => 'Discover/commentDiscover', //评论发现
- //       'discover/discoverlist'    => 'Test/搜索', //搜索
+        'discover/commentdiscover' => 'Discover/commentDiscover', //评论发现
+ //       'discover/discoverlist'    => 'Test/搜索', //搜索 todo
 
 ]
   );
