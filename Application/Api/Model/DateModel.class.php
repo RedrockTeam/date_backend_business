@@ -24,7 +24,7 @@ class DateModel extends Model {
     //获取约详情
     public function detaildate($date_id, $uid) {
         $date = $this->where(['id' => $date_id])
-                     ->field('id as date_id, title, date_type, content, date_time, date_place, cost_type, limit_num as people_limit, gender_limit, status as date_status, user_id as uid, apply_num')
+                     ->field('id as date_id, title, date_type, content, date_time, date_place, cost_type, limit_num as people_limit, gender_limit, status as date_status, user_id as uid, apply_num, weekend')
                      ->find();
         $userinfo = M('users')->where(['id' => $date['uid']])->field('avatar, gender, role_id')->find();
         $data = array_merge($date, $userinfo);
