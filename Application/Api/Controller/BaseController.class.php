@@ -61,4 +61,26 @@ class BaseController extends Controller {
         M('users')->where("phone = '$tel'")->save($update);
         return $token;
     }
+
+    /**
+     * @return bool
+     * 用于返回当前时期是否是周末
+     * 如果是，返回true，如果否，返回false
+     */
+    protected function weekendJudge () {
+        $default = new \Org\Util\Date('2015-08-24');
+        $nowTime = date('Y-m-d',time());
+        $dayNum  = $default->dateDiff($nowTime);
+        $dayNum  += 1 ;
+        $week    = $dayNum / 7;
+        $week    = floor($week);
+        $week    = intval($week);
+        $weekday = $dayNum % 7;
+        $weekday = intval($weekday);
+        if ($weekday != 0){
+        } else {
+            $weekday = 7 ;
+        }
+        return $weekday == 7 || $weekday == 6 ? true : false;
+    }
 }
