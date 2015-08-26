@@ -31,6 +31,29 @@ class UsersController extends BaseController
         ]);
     }
 
+    //搜索用户
+    public function search() {
+        $content =I('post.content');
+        $map = [
+            'users.nickname' => ['LIKE', '%'.$content.'%', 'or'],
+        ];
+        $data = M('users')->where($map)->group('users.id')->limit(10)->field('id as uid, nickname, avatar, signature, charm, gender')->select();
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功',
+            'data' => $data?$data:[]
+        ]);
+    }
+
+    //热搜用户
+    public function hotsearch() {
+        $data = M('users')->order('rand() asc')->group('users.id')->field('id as uid, nickname, avatar, signature, charm, gender')->find();
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功',
+            'data' => $data?$data:[]
+        ]);
+    }
     //关注某人
     public function addCare() {
         $input = I('post.');

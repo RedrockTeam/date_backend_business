@@ -9,35 +9,12 @@ use Think\Controller;
 
 class DateController extends BaseController {
 
-    //获取约会类型
-    public function type() {
-        $type_id = I('post.type_id');
-        if($type_id) {
-           $data = M('date_type')->where(array('father_id' => $type_id))
-                                ->field('id as type_id, type as type_name')
-                                ->select();
-        } else {
-            $data = M('date_type')->where(array('father_id' => 0))
-                                    ->field('id as type_id, type as type_name')
-                                    ->select();
-            foreach($data as &$va) {
-                $va['type_son'] = M('date_type')->where(array('father_id' => $va['type_id']))
-                    ->field('id as type_id, type as type_name')
-                    ->select();
-            }
-        }
-        $this->ajaxReturn([
-            'status' => 0,
-            'info' => '成功',
-            'data' => $data
-        ]);
-    }
-
     //获取约详情
     public function detailDate() {
         $date_id = I('post.date_id');
+        $uid = I('post.uid');
         $date = new DateModel();
-        $data = $date->detaildate($date_id);
+        $data = $date->detaildate($date_id, $uid);
         $comment = new CommentModel();
         $data['date_comment'] = $comment->getComment(['date_id' => $date_id, $page = 1]);
         $this->ajaxReturn([
@@ -111,7 +88,7 @@ class DateController extends BaseController {
                 $info = '不符合学校限制';
                 break;
             case 6:
-                $status = 1;
+                $status = -3;
                 $info = '商家不能发布约, 只能发布发现';
                 break;
             default:
@@ -122,6 +99,105 @@ class DateController extends BaseController {
         $this->ajaxReturn([
             'status' => $status,
             'info' => $info
+        ]);
+    }
+
+    //点赞约
+    public function praiseDate() {
+        $input = I('post.');
+        $map = [
+            'date_id' => $input['daet_id'],
+            'user_id' => $input['uid']
+        ];
+        if(M('date_praise')->where($map)->count()) {
+            $this->ajaxReturn([
+                'status' => 1,
+                'info' => '你已经点赞过该约!'
+            ]);
+        } else {
+            M('date_praise')->add($map);
+            $this->ajaxReturn([
+                'status' => 0,
+                'info' => '成功!'
+            ]);
+        }
+    }
+    //取消点赞约
+    public function delPraiseDate() {
+        $input = I('post.');
+        $map = [
+            'date_id' => $input['daet_id'],
+            'user_id' => $input['uid']
+        ];
+        if(!M('date_praise')->where($map)->count()) {
+            $this->ajaxReturn([
+                'status' => 1,
+                'info' => '你没有赞过该约!'
+            ]);
+        } else {
+            M('date_praise')->where($map)->delete();
+            $this->ajaxReturn([
+                'status' => 0,
+                'info' => '成功!'
+            ]);
+        }
+    }
+
+    //评论约
+    public function commentDate() {
+        $input = I('post.');
+        if($input['content'] == null || $input['content'] == '') {
+            $this->ajaxReturn([
+                'status' => 1,
+                'info' => '评论内容不能为空'
+            ]);
+        }
+        $data = [
+            'user_id' => $input['uid'],
+            'date_id' => $input['date_id'],
+            'content' => $input['content'],
+            'time'    => time(),
+            'father_id' => $input['father_id']? $input['father_id']:0,
+            'status' => 1
+        ];
+        M('comment')->add($data);
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功'
+        ]);
+    }
+
+    //搜索约
+    public function search() {
+        $content = explode(' ', I('post.content'));
+        $i = 0;
+        foreach($content as $v) {
+            $search[] = '%'.$v.'%';
+            $i++;
+            if($i == 3) {
+                break;
+            }
+        }
+        $map = [
+            'date.title' => ['LIKE', $search, 'or'],
+            'date.content' => ['LIKE', $search, 'or'],
+            '_logic' => 'or'
+        ];
+        $data = M('date')->where($map)->group('date.id')->limit(10)->field('id as date_id, title, content')->select();
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功',
+            'data' => $data?$data:[]
+        ]);
+    }
+
+    //热搜关键词
+    public function hotsearch() {
+        $data = M('date_type')->order('rand() asc')->getField('type');
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功',
+            'data' => $data
         ]);
     }
 

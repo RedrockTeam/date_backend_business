@@ -72,6 +72,95 @@ class DiscoverController extends BaseController {
         }
     }
 
+    //评论发现
+    public function commentDate() {
+        $input = I('post.');
+        if($input['content'] == null || $input['content'] == '') {
+            $this->ajaxReturn([
+                'status' => 1,
+                'info' => '评论内容不能为空'
+            ]);
+        }
+        $data = [
+            'user_id' => $input['uid'],
+            'date_id' => $input['discover_id'],
+            'content' => $input['content'],
+            'time'    => time(),
+            'father_id' => $input['father_id']? $input['father_id']:0,
+            'status' => 1
+        ];
+        M('discover_comment')->add($data);
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功'
+        ]);
+    }
+
+    //点赞发现
+    public function praiseDiscover() {
+        $input = I('post.');
+        $map = [
+            'discover_id' => $input['discover_id'],
+            'user_id' => $input['uid']
+        ];
+        if(M('discover_praise')->where($map)->count()) {
+            $this->ajaxReturn([
+                'status' => 1,
+                'info' => '你已经点赞过该约!'
+            ]);
+        } else {
+            M('discover_praise')->add($map);
+            $this->ajaxReturn([
+                'status' => 0,
+                'info' => '成功!'
+            ]);
+        }
+    }
+    //取消点赞约
+    public function delPraiseDiscover() {
+        $input = I('post.');
+        $map = [
+            'discover_id' => $input['discover_id'],
+            'user_id' => $input['uid']
+        ];
+        if(!M('discover_praise')->where($map)->count()) {
+            $this->ajaxReturn([
+                'status' => 1,
+                'info' => '你没有赞过该约!'
+            ]);
+        } else {
+            M('discover_praise')->where($map)->delete();
+            $this->ajaxReturn([
+                'status' => 0,
+                'info' => '成功!'
+            ]);
+        }
+    }
+
+    //搜索发现
+    public function search() {
+        $content = explode(' ', I('post.content'));
+        $i = 0;
+        foreach($content as $v) {
+            $search[] = '%'.$v.'%';
+            $i++;
+            if($i == 3) {
+                break;
+            }
+        }
+        $map = [
+            'discover.title' => ['LIKE', $search, 'or'],
+//            'discover.content' => ['LIKE', $search, 'or'],
+//            '_logic' => 'or'
+        ];
+        $data = M('discover')->where($map)->group('discover.id')->limit(10)->field('id as discover_id, title')->select();
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功',
+            'data' => $data?$data:[]
+        ]);
+    }
+
    private function checkData($data) {
         if(mb_strlen($data['title'], 'utf8') > self::TITLE){
             return false;

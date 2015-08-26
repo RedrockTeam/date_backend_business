@@ -28,17 +28,18 @@
     - 1 成功
     - 2 报名中
     
-5. 	用户对于约状态说明
-	
-	- 0 被拒绝
-	- 1 被接受
-	- 2 已报名
-	
+5.     用户对于约状态说明
+    
+    - 0 被拒绝
+    - 1 被接受
+    - 2 已报名
+    - 3 未报名
+    
 6. 用户角色说明
 
-	- 1 未认证普通用户
-	- 2 已认证普通用户
-	- 3 商家(所有商家均已认证)
+    - 1 未认证普通用户
+    - 2 已认证普通用户
+    - 3 商家(所有商家均已认证)
     
 ##公共接口
 
@@ -488,8 +489,55 @@
                 info:"成功"
             }
 
+9. 搜索用户
+            
+            URL: api/user/search
+            Request: 
+            {
+                uid:,
+                token:,
+                content:
+            }
+            Response: 
+            {
+                status:0,
+                info:"成功",
+                data: 
+                [
+                    {
+                    uid: , 
+                    nickname: ,  
+                    avatar: , 
+                    signature: , 
+                    charm: , 
+                    gender: 
+                    },
+                    {....}
+                ]
+            }
     
+10. 热搜用户
 
+            URL: api/user/hotsearch
+                        Request: 
+                        {
+                            uid:,
+                            token:,
+                        }
+                        Response: 
+                        {
+                            status:0,
+                            info:"成功",
+                            data: 
+                            [
+                                uid: , 
+                                nickname: ,  
+                                avatar: , 
+                                signature: , 
+                                charm: , 
+                                gender: 
+                            ]
+                        }
 ##约会接口
 
 1. 获取约列表
@@ -515,6 +563,7 @@
                         cost_type: ,//话费类型
                         date_place: , //约会地点
                         praise: ,//点赞
+                        praise_status: , //用户是否点赞, 1是0否
                         comment_num: ,//评论数量
                         apply_num: ,//报名人数
                         uid: ,
@@ -664,8 +713,94 @@
 
 7. 评论
     
-    - ...
+                 URL: api/date/commentdate
+    
+                  Request: 
+                  {
+                      uid: ,
+                      token: ,
+                      date_id: ,
+                      father_id: ,//默认为0, 对楼层进行回复时带上当前 **层主** comment_id, 类似贴吧楼中楼实现
+                  }
+                  Response: 
+                  {
+                      status:0,
+                      info:"成功",    
+                  }
+                  
+8. 约点赞
 
+    - 点赞
+    
+                URL: api/date/datepraise
+            
+                          Request: 
+                          {
+                              uid: ,
+                              token: ,
+                              date_id: 
+                          }
+                          Response: 
+                          {
+                              status:0,
+                              info:"成功",    
+                          }
+    
+    - 取消赞
+    
+                URL: api/date/deldatepraise
+        
+                      Request: 
+                      {
+                          uid: ,
+                          token: ,
+                          date_id: 
+                          }
+                      Response: 
+                      {
+                          status:0,
+                          info:"成功",    
+                      }
+                      
+9. 搜索
+
+                    URL: api/date/search
+                            Request: 
+                            {
+                                uid: ,
+                                token: ,
+                                content: 
+                            }
+                            Response: 
+                            {
+                                status:0,
+                                info:"成功",
+                                data: 
+                                    [
+                                    {
+                                    'date_id': ,
+                                    'title': ,
+                                    'content': 
+                                    },
+                                    {....}
+                                ]
+                            }
+
+10. 热搜关键词
+
+                    URL: api/date/hotsearch
+                            Request: 
+                            {
+                                uid: ,
+                                token: ,
+                               
+                            }
+                            Response: 
+                            {
+                                status:0,
+                                info:"成功",
+                                data: 'string',
+                            }
 ##发现接口
 1. 获取发现列表
      
@@ -765,7 +900,26 @@
 
 4. 搜索
 
-    - ...
+            URL: api/discover/search
+                        Request: 
+                        {
+                            uid: ,
+                            token: ,
+                            content: 
+                        }
+                        Response: 
+                        {
+                            status:0,
+                            info:"成功",
+                            data: 
+                                [
+                                {
+                                'discover_id': ,
+                                'title': 
+                                },
+                                {......}
+                            ]
+                        }
 
 5. 发布发现(仅商家)
 
@@ -787,3 +941,52 @@
                     } 
         
                 
+6. 评论发现
+        
+		URL: api/discover/commentdiscover
+	
+				  Request: 
+				  {
+					  uid: ,
+					  token: ,
+					  date_id: ,
+					  father_id: ,//默认为0, 对楼层进行回复时带上当前 **层主** comment_id, 类似贴吧楼中楼实现
+				  }
+				  Response: 
+				  {
+					  status:0,
+					  info:"成功",    
+				  }
+				  
+7. 发现点赞
+
+    - 点赞
+             URL: api/discover/discoverpraise
+         	
+         				  Request: 
+         				  {
+         					  uid: ,
+         					  token: ,
+         					  discover_id: 
+         				  }
+         				  Response: 
+         				  {
+         					  status:0,
+         					  info:"成功",    
+         				  }   
+    
+    - 取消赞
+    
+            URL: api/discover/deldiscoverpraise
+                     	
+                          Request: 
+                          {
+                              uid: ,
+                              token: ,
+                              discover_id: 
+                          }
+                          Response: 
+                          {
+                              status:0,
+                              info:"成功",    
+                          }
