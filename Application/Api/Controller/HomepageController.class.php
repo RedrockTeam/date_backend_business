@@ -18,6 +18,7 @@ class HomepageController extends BaseController {
         $timeLimit    = I('post.timeLimit');
         $tel          = I('post.tel');
         $token        = I('post.token');
+        $page         = I('post.page');
 
         $res = $this->tokenCheck($tel,$token);
         if (!$res) {
@@ -33,27 +34,39 @@ class HomepageController extends BaseController {
         $timeLimit = $this->timeTrans($timeLimit);
         if ($sortLimit == "1") {
             if ($timeLimit == 0) {
-                $count = $db_date->field("users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit'")->count();
-                $res   = $db_date->field("users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit'")->select();
+                $count = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit'")->count();
+                $res   = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit'")->page("$page,10")->select();
             } else if ($timeLimit == 1) {
-                $count = $db_date->field("users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND weekend = 1")->count();
-                $res   = $db_date->field("users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND weekend = 1")->select();
+                $count = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND weekend = 1")->count();
+                $res   = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND weekend = 1")->page("$page,10")->select();
             } else {
-                $count = $db_date->field("users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND date_time < '$timeLimit'")->count();
-                $res   = $db_date->field("users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND date_time < '$timeLimit'")->select();
+                $count = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND date_time < '$timeLimit'")->count();
+                $res   = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND date_time < '$timeLimit'")->page("$page,10")->select();
             }
         } else {
             if ($timeLimit == 0) {
-                $count = $db_date->field("users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit'")->count();
-                $res   = $db_date->field("users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit'")->order("date_time")->select();
+                $count = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit'")->count();
+                $res = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit'")->order("date_time")->page("$page,10")->select();
             } else if ($timeLimit == 1) {
-                $count = $db_date->field("users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND weekend = 1")->count();
-                $res   = $db_date->field("users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND weekend = 1")->order("date_time")->select();
+                $count = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND weekend = 1")->count();
+                $res = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND weekend = 1")->order("date_time")->page("$page,10")->select();
             } else {
-                $count = $db_date->field("users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND date_time < '$timeLimit'")->count();
-                $res   = $db_date->field("users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND date_time < '$timeLimit'")->order("date_time")->select();
+                $count = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND date_time < '$timeLimit'")->count();
+                $res = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("status = 2 AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND date_time < '$timeLimit'")->order("date_time")->page("$page,10")->select();
             }
         }
+
+        foreach ($res as $var) {
+            $map ['user_id'] = $var ['uId'];
+            $map ['date_id'] = $var ['id'];
+            $check = M('date_praise')->where($map)->find();
+            if ($check) {
+                $var ['praise_status'] = 1;
+            } else {
+                $var ['praise_status'] = 0;
+            }
+        }
+
 
         $return = [
             'status' => '0',
@@ -68,6 +81,7 @@ class HomepageController extends BaseController {
         $tel   = I('post.tel');
         $token = I('post.token');
         $type  = I('post.dateType');
+        $page  = I('post.page');
 
         $res = $this->tokenCheck($tel,$token);
         if (!$res) {
@@ -79,8 +93,19 @@ class HomepageController extends BaseController {
         }
         $db_date = M('date');
 
-        $count = $db_date->field("users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date_type.id = '$type'")->count();
-        $res   = $db_date->field("users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date_type.id = '$type'")->select();
+        $count = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date_type.id = '$type'")->count();
+        $res   = $db_date->field("date.id AS id,dausers.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date_type.id = '$type'")->page("$page,10")->select();
+
+        foreach ($res as $var) {
+            $map ['user_id'] = $var ['uId'];
+            $map ['date_id'] = $var ['id'];
+            $check = M('date_praise')->where($map)->find();
+            if ($check) {
+                $var ['praise_status'] = 1;
+            } else {
+                $var ['praise_status'] = 0;
+            }
+        }
 
         $return = [
             'status' => '0',

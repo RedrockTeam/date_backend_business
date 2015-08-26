@@ -72,9 +72,6 @@ class BaseController extends Controller {
         $nowTime = date('Y-m-d',time());
         $dayNum  = $default->dateDiff($nowTime);
         $dayNum  += 1 ;
-        $week    = $dayNum / 7;
-        $week    = floor($week);
-        $week    = intval($week);
         $weekday = $dayNum % 7;
         $weekday = intval($weekday);
         if ($weekday != 0){
@@ -82,5 +79,100 @@ class BaseController extends Controller {
             $weekday = 7 ;
         }
         return $weekday == 7 || $weekday == 6 ? true : false;
+    }
+
+    protected function messageUpdate ($id) {
+        $info  = M('users')->where("id = '$id'")->find();
+        $param = [
+            'userId' => $id,
+            'name'   => $info ['nickname'],
+            'portraitUri' => $info ['avatar']
+        ];
+        $res = $this->curl($param,"2");
+
+        $code = $res ['code'];
+        return $code == 200 ? true : false;
+    }
+    /**
+     * @return array
+     */
+    protected function httpHeader () {
+        $nonce =mt_rand();
+        $timeStamp = time();
+        $sign = sha1($this->appSecret.$nonce.$timeStamp);
+        $return = [
+            'RC-App-Key:'.$this->appKey,
+            'RC-Nonce:'.$nonce,
+            'RC-Timestamp:'.$timeStamp,
+            'RC-Signature:'.$sign,
+        ];
+        return $return;
+    }
+
+    /**
+     * @param $params
+     * @return int|mixed
+     */
+    protected function curl($params,$type = "1") {
+        if ($type == "1") {
+            $action = "https://api.cn.ronghub.com/user/getToken.json";
+        } else {
+            $action = "https://api.cn.ronghub.com/user/refresh.json";
+        }
+        $httpHeader = $this->httpHeader();
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $action);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $this->buildQuery($params));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $httpHeader);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,false);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_DNS_USE_GLOBAL_CACHE, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($ch);
+        if (false === $res) {
+            $res =  curl_errno($ch);
+        }
+        curl_close($ch);
+        $res = json_decode($res,true);
+        return $res;
+    }
+
+    /**
+     * @param $formData
+     * @param string $numericPrefix
+     * @param string $argSeparator
+     * @param string $prefixKey
+     * @return string
+     */
+    protected function buildQuery($formData, $numericPrefix = '', $argSeparator = '&', $prefixKey = '') {
+        $str = '';
+        foreach ($formData as $key => $val) {
+            if (!is_array($val)) {
+                $str .= $argSeparator;
+                if ($prefixKey === '') {
+                    if (is_int($key)) {
+                        $str .= $numericPrefix;
+                    }
+                    $str .= urlencode($key) . '=' . urlencode($val);
+                } else {
+                    $str .= urlencode($prefixKey) . '=' . urlencode($val);
+                }
+            } else {
+                if ($prefixKey == '') {
+                    $prefixKey .= $key;
+                }
+                if (is_array($val[0])) {
+                    $arr = array();
+                    $arr[$key] = $val[0];
+                    $str .= $argSeparator . http_build_query($arr);
+                } else {
+                    $str .= $argSeparator . $this->buildQuery($val, $numericPrefix, $argSeparator, $prefixKey);
+                }
+                $prefixKey = '';
+            }
+        }
+        return substr($str, strlen($argSeparator));
     }
 }

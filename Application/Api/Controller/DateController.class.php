@@ -50,7 +50,63 @@ class DateController extends BaseController {
 
     //发布约
     public function createDate() {
+        $tel     = I('post.tel');
+        $token   = I('post.token');
+        $title   = I('post.title');
+        $content = I('post.content');
+        $type    = I('post.type');
+        $time    = I('post.time');
+        $payment = I('post.payment');
+        $people  = I('post.people');
+        $gender  = I('post.gender');
+        $school  = I('post.school');
 
+
+        $res = $this->tokenCheck($tel,$token);
+        if (!$res) {
+            $return = [
+                'status' => '-109',
+                'info'   => 'Token Error'
+            ];
+            $this->ajaxReturn($return);
+        }
+
+        $nowTime = time();
+
+        if ($nowTime > $time) {
+            $return = [
+                'status' => '-201',
+                'info'   => '时间错误'
+            ];
+            $this->ajaxReturn($return);
+        }
+
+        $save = [
+            'title'        => $title,
+            'content'      => $content,
+            'date_type'    => $type,
+            'date_time'    => $time,
+            'cost_type'    => $payment,
+            'limit_num'    => $people,
+            'gender_limit' => $gender
+        ];
+        $db_date = M('date');
+        $db_date->add($save);
+        $id = $db_date->getLastInsID();
+
+        if ($school) {
+            foreach ($school as $var) {
+                $param ['date_id'] = $id;
+                $param ['school_id']   = $var;
+                M('date_limit')->add($param);
+            }
+        }
+
+        $return = [
+            'status' => '0',
+            'info'   => 'success'
+        ];
+        $this->ajaxReturn($return);
     }
 
     //报名约
