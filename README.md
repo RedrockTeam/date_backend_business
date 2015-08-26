@@ -516,6 +516,7 @@
                         cost_type: ,//话费类型
                         date_place: , //约会地点
                         praise: ,//点赞
+                        praise_status: , //用户是否点赞, 1是0否
                         comment_num: ,//评论数量
                         apply_num: ,//报名人数
                         uid: ,

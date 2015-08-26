@@ -95,6 +95,47 @@ class DiscoverController extends BaseController {
             'info' => '成功'
         ]);
     }
+
+    //点赞发现
+    public function praiseDiscover() {
+        $input = I('post.');
+        $map = [
+            'discover_id' => $input['discover_id'],
+            'user_id' => $input['uid']
+        ];
+        if(M('discover_praise')->where($map)->count()) {
+            $this->ajaxReturn([
+                'status' => 1,
+                'info' => '你已经点赞过该约!'
+            ]);
+        } else {
+            M('discover_praise')->add($map);
+            $this->ajaxReturn([
+                'status' => 0,
+                'info' => '成功!'
+            ]);
+        }
+    }
+    //取消点赞约
+    public function delPraiseDiscover() {
+        $input = I('post.');
+        $map = [
+            'discover_id' => $input['discover_id'],
+            'user_id' => $input['uid']
+        ];
+        if(!M('discover_praise')->where($map)->count()) {
+            $this->ajaxReturn([
+                'status' => 1,
+                'info' => '你没有赞过该约!'
+            ]);
+        } else {
+            M('discover_praise')->where($map)->delete();
+            $this->ajaxReturn([
+                'status' => 0,
+                'info' => '成功!'
+            ]);
+        }
+    }
    private function checkData($data) {
         if(mb_strlen($data['title'], 'utf8') > self::TITLE){
             return false;

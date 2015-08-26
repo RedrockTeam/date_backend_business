@@ -102,6 +102,46 @@ class DateController extends BaseController {
         ]);
     }
 
+    //点赞约
+    public function praiseDate() {
+        $input = I('post.');
+        $map = [
+            'date_id' => $input['daet_id'],
+            'user_id' => $input['uid']
+        ];
+        if(M('date_praise')->where($map)->count()) {
+            $this->ajaxReturn([
+                'status' => 1,
+                'info' => '你已经点赞过该约!'
+            ]);
+        } else {
+            M('date_praise')->add($map);
+            $this->ajaxReturn([
+                'status' => 0,
+                'info' => '成功!'
+            ]);
+        }
+    }
+    //取消点赞约
+    public function delPraiseDate() {
+        $input = I('post.');
+        $map = [
+            'date_id' => $input['daet_id'],
+            'user_id' => $input['uid']
+        ];
+        if(!M('date_praise')->where($map)->count()) {
+            $this->ajaxReturn([
+                'status' => 1,
+                'info' => '你没有赞过该约!'
+            ]);
+        } else {
+            M('date_praise')->where($map)->delete();
+            $this->ajaxReturn([
+                'status' => 0,
+                'info' => '成功!'
+            ]);
+        }
+    }
     //评论约
     public function commentDate() {
         $input = I('post.');
