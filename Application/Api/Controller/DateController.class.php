@@ -160,6 +160,7 @@ class DateController extends BaseController {
             'father_id' => $input['father_id']? $input['father_id']:0,
             'status' => 1
         ];
+        M('date')->where(['date_id' => $input['date_id']])->setInc('comment_num');
         M('comment')->add($data);
         $this->ajaxReturn([
             'status' => 0,
