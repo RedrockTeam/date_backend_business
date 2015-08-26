@@ -142,6 +142,7 @@ class DateController extends BaseController {
             ]);
         }
     }
+
     //评论约
     public function commentDate() {
         $input = I('post.');
@@ -163,6 +164,40 @@ class DateController extends BaseController {
         $this->ajaxReturn([
             'status' => 0,
             'info' => '成功'
+        ]);
+    }
+
+    //搜索约
+    public function search() {
+        $content = explode(' ', I('post.content'));
+        $i = 0;
+        foreach($content as $v) {
+            $search[] = '%'.$v.'%';
+            $i++;
+            if($i == 3) {
+                break;
+            }
+        }
+        $map = [
+            'date.title' => ['LIKE', $search, 'or'],
+            'date.content' => ['LIKE', $search, 'or'],
+            '_logic' => 'or'
+        ];
+        $data = M('date')->where($map)->group('date.id')->limit(10)->field('id as date_id, title, content')->select();
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功',
+            'data' => $data?$data:[]
+        ]);
+    }
+
+    //热搜关键词
+    public function hotsearch() {
+        $data = M('date_type')->order('rand() asc')->getField('type');
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功',
+            'data' => $data
         ]);
     }
 

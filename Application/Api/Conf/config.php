@@ -36,6 +36,8 @@ return array(
         'user/carenum'        => 'Users/careNum', //获取关注/被关注数
         'user/addcare'        => 'Users/addCare', //关注某人
         'user/delcare'        => 'Users/delCare', //取关某人
+        'user/search'         => 'Users/search', //搜索用户
+        'user/hotsearch'         => 'Users/hotsearch', //热搜用户
 
 
         //约会接口
@@ -48,16 +50,18 @@ return array(
         'date/commentdate'   => 'Date/commentDate', //评论
         'date/datepraise'    => 'Date/praiseDate', //点赞约
         'date/deldatepraise' => 'Date/delPraiseDate', //取消点赞约
+        'date/search'        => 'Date/search', //搜索约
+        'date/hotsearch'        => 'Date/hotsearch', //热搜关键词
 
         //发现接口
-        'discover/discoverlist'    => 'Discover/discoverList', //获取发现列表
-        'discover/detaildiscover'  => 'Discover/detaildDiscover', //发现详情
-        'discover/applydiscover'   => 'Discover/applyDiscover', //参加活动
-        'discover/creatediscover'  => 'Discover/createDiscover', //发布活动
-        'discover/commentdiscover' => 'Discover/commentDiscover', //评论发现
-        'discover/discoverpraise' => 'Discover/praiseDiscover', //评论发现
+        'discover/discoverlist'      => 'Discover/discoverList', //获取发现列表
+        'discover/detaildiscover'    => 'Discover/detaildDiscover', //发现详情
+        'discover/applydiscover'     => 'Discover/applyDiscover', //参加活动
+        'discover/creatediscover'    => 'Discover/createDiscover', //发布活动
+        'discover/commentdiscover'   => 'Discover/commentDiscover', //评论发现
+        'discover/discoverpraise'    => 'Discover/praiseDiscover', //评论发现
         'discover/deldiscoverpraise' => 'Discover/delPraiseDiscover', //评论发现
- //       'discover/discoverlist'    => 'Test/搜索', //搜索 todo
+        'discover/search'            => 'discover/search', //搜索 todo
 
 ]
   );

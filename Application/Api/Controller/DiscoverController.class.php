@@ -136,6 +136,31 @@ class DiscoverController extends BaseController {
             ]);
         }
     }
+
+    //搜索发现
+    public function search() {
+        $content = explode(' ', I('post.content'));
+        $i = 0;
+        foreach($content as $v) {
+            $search[] = '%'.$v.'%';
+            $i++;
+            if($i == 3) {
+                break;
+            }
+        }
+        $map = [
+            'discover.title' => ['LIKE', $search, 'or'],
+//            'discover.content' => ['LIKE', $search, 'or'],
+//            '_logic' => 'or'
+        ];
+        $data = M('discover')->where($map)->group('discover.id')->limit(10)->field('id as discover_id, title')->select();
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功',
+            'data' => $data?$data:[]
+        ]);
+    }
+
    private function checkData($data) {
         if(mb_strlen($data['title'], 'utf8') > self::TITLE){
             return false;

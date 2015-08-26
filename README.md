@@ -489,8 +489,55 @@
                 info:"成功"
             }
 
+9. 搜索用户
+            
+            URL: api/user/search
+            Request: 
+            {
+                uid:,
+                token:,
+                content:
+            }
+            Response: 
+            {
+                status:0,
+                info:"成功",
+                data: 
+                [
+                    {
+                    uid: , 
+                    nickname: ,  
+                    avatar: , 
+                    signature: , 
+                    charm: , 
+                    gender: 
+                    },
+                    {....}
+                ]
+            }
     
+10. 热搜用户
 
+            URL: api/user/hotsearch
+                        Request: 
+                        {
+                            uid:,
+                            token:,
+                        }
+                        Response: 
+                        {
+                            status:0,
+                            info:"成功",
+                            data: 
+                            [
+                                uid: , 
+                                nickname: ,  
+                                avatar: , 
+                                signature: , 
+                                charm: , 
+                                gender: 
+                            ]
+                        }
 ##约会接口
 
 1. 获取约列表
@@ -666,7 +713,7 @@
 
 7. 评论
     
-    - URL: api/date/commentdate
+                 URL: api/date/commentdate
     
                   Request: 
                   {
@@ -680,7 +727,80 @@
                       status:0,
                       info:"成功",    
                   }
+                  
+8. 约点赞
 
+    - 点赞
+    
+                URL: api/date/datepraise
+            
+                          Request: 
+                          {
+                              uid: ,
+                              token: ,
+                              date_id: 
+                          }
+                          Response: 
+                          {
+                              status:0,
+                              info:"成功",    
+                          }
+    
+    - 取消赞
+    
+                URL: api/date/deldatepraise
+        
+                      Request: 
+                      {
+                          uid: ,
+                          token: ,
+                          date_id: 
+                          }
+                      Response: 
+                      {
+                          status:0,
+                          info:"成功",    
+                      }
+                      
+9. 搜索
+
+                    URL: api/date/search
+                            Request: 
+                            {
+                                uid: ,
+                                token: ,
+                                content: 
+                            }
+                            Response: 
+                            {
+                                status:0,
+                                info:"成功",
+                                data: 
+                                    [
+                                    {
+                                    'date_id': ,
+                                    'title': ,
+                                    'content': 
+                                    },
+                                    {....}
+                                ]
+                            }
+
+10. 热搜关键词
+
+                    URL: api/date/hotsearch
+                            Request: 
+                            {
+                                uid: ,
+                                token: ,
+                               
+                            }
+                            Response: 
+                            {
+                                status:0,
+                                info:"成功",
+                                data: 'string',
+                            }
 ##发现接口
 1. 获取发现列表
      
@@ -780,7 +900,26 @@
 
 4. 搜索
 
-    - ...
+            URL: api/discover/search
+                        Request: 
+                        {
+                            uid: ,
+                            token: ,
+                            content: 
+                        }
+                        Response: 
+                        {
+                            status:0,
+                            info:"成功",
+                            data: 
+                                [
+                                {
+                                'discover_id': ,
+                                'title': 
+                                },
+                                {......}
+                            ]
+                        }
 
 5. 发布发现(仅商家)
 
@@ -818,3 +957,36 @@
 					  status:0,
 					  info:"成功",    
 				  }
+				  
+7. 发现点赞
+
+    - 点赞
+             URL: api/discover/discoverpraise
+         	
+         				  Request: 
+         				  {
+         					  uid: ,
+         					  token: ,
+         					  discover_id: 
+         				  }
+         				  Response: 
+         				  {
+         					  status:0,
+         					  info:"成功",    
+         				  }   
+    
+    - 取消赞
+    
+            URL: api/discover/deldiscoverpraise
+                     	
+                          Request: 
+                          {
+                              uid: ,
+                              token: ,
+                              discover_id: 
+                          }
+                          Response: 
+                          {
+                              status:0,
+                              info:"成功",    
+                          }
