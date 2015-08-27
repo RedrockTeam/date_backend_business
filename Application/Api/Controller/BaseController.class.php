@@ -2,6 +2,8 @@
 namespace Api\Controller;
 use Think\Controller;
 class BaseController extends Controller {
+    private $appKey    = 'c9kqb3rdk5yrj';
+    private $appSecret = 'erijfn2nNwAG';
 
     public function _initialize () {
         if (!$this->checkMethod()) {
@@ -81,7 +83,7 @@ class BaseController extends Controller {
         return $weekday == 7 || $weekday == 6 ? true : false;
     }
 
-    protected function messageUpdate ($id) {
+    protected function chatUpdate ($id) {
         $info  = M('users')->where("id = '$id'")->find();
         $param = [
             'userId' => $id,
@@ -175,4 +177,24 @@ class BaseController extends Controller {
         }
         return substr($str, strlen($argSeparator));
     }
+
+    /**
+     * @param $to_user string
+     * @param $type string
+     * @param $date_id int
+     * @return bool
+     * 用于消息的创建，目标用户，类型，对应约id
+     */
+    protected function createMessage ($to_user,$type,$date_id) {
+        $save = [
+            'to_user' => $to_user,
+            'm_type'  => $type,
+            'date_id' => $date_id,
+            'm_time'  => time()
+        ];
+        M('message')->add($save);
+        return true;
+    }
+
+
 }

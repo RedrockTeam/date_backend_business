@@ -10,8 +10,6 @@ namespace Api\Controller;
 use Think\Controller;
 
 class MessageController extends BaseController {
-    private $appKey    = 'c9kqb3rdk5yrj';
-    private $appSecret = 'erijfn2nNwAG';
 
     public function getToken () {
         $tel   = I('post.tel');
@@ -34,7 +32,7 @@ class MessageController extends BaseController {
             'portraitUri' => $info ['avatar']
         ];
 
-        $res = M('message')->where("user_id = '$id'")->find();
+        $res = M('chat')->where("user_id = '$id'")->find();
         if (!$res) {
             $res = $this->curl($param);
         }
@@ -57,6 +55,55 @@ class MessageController extends BaseController {
                 'token'  => $res ['token']
             ];
         }
+        $this->ajaxReturn($return);
+    }
+
+    public function messageGroup () {
+        $tel   = I('post.tel');
+        $token = I('post.token');
+
+        $res = $this->tokenCheck($tel,$token);
+        if (!$res) {
+            $return = [
+                'status' => '-109',
+                'info'   => 'Token Error'
+            ];
+            $this->ajaxReturn($return);
+        }
+        $info  = M('users')->where("phone = '$tel'")->find();
+        $id    = $info ['id'];
+
+        $list = M('message')->where("to_user = '$id'")->select();
+
+        $return = [
+            'status' => '0',
+            'info'   => '成功',
+            'data'   => $list
+        ];
+        $this->ajaxReturn($return);
+    }
+
+    public function messageOne () {
+        $tel   = I('post.tel');
+        $token = I('post.token');
+        $m_id  = I('post.messageId');
+
+        $res = $this->tokenCheck($tel,$token);
+        if (!$res) {
+            $return = [
+                'status' => '-109',
+                'info'   => 'Token Error'
+            ];
+            $this->ajaxReturn($return);
+        }
+
+        $res = M('message')->where("m_id = '$m_id'")->find();
+
+        $return = [
+            'status' => '200',
+            'info'   => '成功',
+            'data'   => $res
+        ];
         $this->ajaxReturn($return);
     }
 
