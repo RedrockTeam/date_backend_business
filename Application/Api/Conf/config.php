@@ -61,7 +61,7 @@ return array(
         'discover/commentdiscover'   => 'Discover/commentDiscover', //评论发现
         'discover/discoverpraise'    => 'Discover/praiseDiscover', //评论发现
         'discover/deldiscoverpraise' => 'Discover/delPraiseDiscover', //评论发现
-        'discover/search'            => 'discover/search', //搜索 todo
+        'discover/search'            => 'discover/search', //搜索
 
 ]
   );
