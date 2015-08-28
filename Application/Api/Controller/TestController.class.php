@@ -241,9 +241,6 @@ class TestController extends Controller
 
     public function datelist() {
         $this->ajaxReturn([
-            'status'=> 0,
-            'info' => '成功',
-            'data' => [
                 'status' => 0,
                 'info' => "成功",
                 'data' => [
@@ -266,8 +263,7 @@ class TestController extends Controller
 				        'role_id' => 1,
 
                     ]
-                ],
-            ]
+                ]
         ]);
     }
 

@@ -62,6 +62,5 @@ return array(
         'discover/discoverpraise'    => 'Discover/praiseDiscover', //评论发现
         'discover/deldiscoverpraise' => 'Discover/delPraiseDiscover', //评论发现
         'discover/search'            => 'discover/search', //搜索
-
 ]
   );
