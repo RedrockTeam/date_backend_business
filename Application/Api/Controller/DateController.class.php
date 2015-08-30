@@ -293,4 +293,34 @@ class DateController extends BaseController {
         return 1;
     }
 
+    public function replayDate () {
+        $user_id = I('post.userId');
+        $date_id = I('post.dateId');
+        $status  = I('post.status');
+
+        $param   = [
+            'date_id' => $date_id,
+            'user_id' => $user_id
+        ];
+
+        $update  = [
+            'status' => $status
+        ];
+
+        if ($status == 1 OR $status == 0) {
+            M('apply')->where($param)->save($update);
+            $this->createMessage($user_id,$status,$date_id);
+            $return = [
+                'status' => '0',
+                'info'   => '成功'
+            ];
+        } else {
+            $return = [
+                'status' => '1',
+                'info'   => '状态码不正确'
+            ];
+        }
+        $this->ajaxReturn($return);
+    }
+
 }
