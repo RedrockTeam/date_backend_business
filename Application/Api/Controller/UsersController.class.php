@@ -163,7 +163,13 @@ class UsersController extends BaseController
 
     //修改头像
     public function editAvatar() {
-        //todo 七牛
+        $input = I('post.');
+        M('users')->where(['id' => $input['uid']])->save(['avatar' => $input['avatar']]);
+        parent::chatUpdate($input['uid']);
+        $this->ajaxReturn([
+            'status' => 0,
+            'info' => '成功'
+        ]);
     }
 
     //修改个性签名

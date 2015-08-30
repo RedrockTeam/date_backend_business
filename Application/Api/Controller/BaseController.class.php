@@ -180,7 +180,7 @@ class BaseController extends Controller {
 
     /**
      * @param $to_user string
-     * @param $type string
+     * @param $type string 0 报名, 1接受, 2拒绝
      * @param $date_id int
      * @return bool
      * 用于消息的创建，目标用户，类型，对应约id

@@ -152,6 +152,8 @@ class DateController extends BaseController {
                 $info = '系统开小差了';
                 break;
         }
+        $to_user = M('date')->where(['date_id' => $input['date_id']])->getField('user_id');
+        parent::createMessage($to_user, 0, $input['date_id']);
         $this->ajaxReturn([
             'status' => $status,
             'info' => $info

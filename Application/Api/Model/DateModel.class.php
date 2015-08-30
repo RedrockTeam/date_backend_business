@@ -30,7 +30,7 @@ class DateModel extends Model {
         $data = array_merge($date, $userinfo);
         $data['school_limit'] = M('date_limit')->where(['date_id' => $date_id])
                                                ->join('JOIN school ON date_limit.school_id = school.id')
-                                               ->field('school_id, school_name')
+                                               ->field('school.id as school_id, schoolname as school_name')
                                                ->select();
         $user_date_status = M('apply')->where(['date_id' => $date_id, 'user_id' => $uid])->getField('status');
         $data['user_date_status'] = $user_date_status? $user_date_status:4;
