@@ -50,26 +50,15 @@ class DateController extends BaseController {
 
     //发布约
     public function createDate() {
-        $tel     = I('post.tel');
-        $token   = I('post.token');
         $title   = I('post.title');
         $content = I('post.content');
-        $type    = I('post.type');
-        $time    = I('post.time');
-        $payment = I('post.payment');
-        $people  = I('post.people');
-        $gender  = I('post.gender');
+        $type    = I('post.date_type');
+        $time    = I('post.date_time');
+        $payment = I('post.cost_type');
+        $place   = I('post.date_place');
+        $people  = I('post.people_limit');
+        $gender  = I('post.gender_limit');
         $school  = I('post.school');
-
-
-        $res = $this->tokenCheck($tel,$token);
-        if (!$res) {
-            $return = [
-                'status' => '-109',
-                'info'   => 'Token Error'
-            ];
-            $this->ajaxReturn($return);
-        }
 
         $nowTime = time();
 
@@ -88,6 +77,7 @@ class DateController extends BaseController {
             'date_time'    => $time,
             'cost_type'    => $payment,
             'limit_num'    => $people,
+            'date_place'   => $place,
             'gender_limit' => $gender
         ];
         $db_date = M('date');
@@ -296,9 +286,9 @@ class DateController extends BaseController {
     }
 
     public function replayDate () {
-        $user_id = I('post.userId');
-        $date_id = I('post.dateId');
-        $status  = I('post.status');
+        $user_id = I('post.request_id');
+        $date_id = I('post.date_id');
+        $status  = I('post.operation');
 
         $param   = [
             'date_id' => $date_id,

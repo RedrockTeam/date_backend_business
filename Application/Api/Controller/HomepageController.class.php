@@ -16,18 +16,8 @@ class HomepageController extends BaseController {
         $genderLimit  = I('post.genderLimit');
         $paymentLimit = I('post.paymentLimit');
         $timeLimit    = I('post.timeLimit');
-        $tel          = I('post.tel');
-        $token        = I('post.token');
         $page         = I('post.page');
 
-        $res = $this->tokenCheck($tel,$token);
-        if (!$res) {
-            $return = [
-                'status' => '-109',
-                'info'   => 'Token Error'
-            ];
-            $this->ajaxReturn($return);
-        }
 
         $db_date = M('date');
 
@@ -78,19 +68,10 @@ class HomepageController extends BaseController {
     }
 
     public function dateGroup () {
-        $tel   = I('post.tel');
-        $token = I('post.token');
         $type  = I('post.dateType');
         $page  = I('post.page');
 
-        $res = $this->tokenCheck($tel,$token);
-        if (!$res) {
-            $return = [
-                'status' => '-109',
-                'info'   => 'Token Error'
-            ];
-            $this->ajaxReturn($return);
-        }
+
         $db_date = M('date');
 
         $count = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date_type.id = '$type'")->count();

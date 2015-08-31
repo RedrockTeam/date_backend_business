@@ -57,13 +57,36 @@
                             {"href": 'http://www.baidu.com', "img": ""},
                 ]
             }
+
+
+2. 注册
+
+            Url: api/public/login/
+           
+            Request: 
+            {
+                tel:"",
+                code:"",
+                password:"",
+                gender:"",
+                nickname:"",
+                avatar:"",
+                signature:"",
+                hobby:"",
+            }
+            Response: 
+            {
+                status:0,
+                info:"成功",
+                
+            }
             
             
 2. 登录
             
             URL: api/public/login/
             Request: {
-                        username:"",
+                        loginUser:"",
                         password:""
             }
             Response: 
@@ -78,6 +101,9 @@
                         gender:1, //用户性别1男2女
                         role_id:1, //用户身份
                         token:'asdfghjkl', //token
+                        fans:23,  //粉丝数量
+                        scan:222,  //关注数量
+                        charm:222, //魅力值
                         
                 ]
             }
@@ -407,12 +433,14 @@
 
 7. 实名认证
         
-             URL: api/user/userverify
+             URL: api/account/verify
             Request: 
             {
                 uid:,
                 token:,
-                studentidentity: file,
+                realName: ,
+                school:,
+                stuCard: url
             }
             Response: 
             {
@@ -488,6 +516,23 @@
                 status:0,
                 info:"成功"
             }
+            
+    - 密码找回
+    
+            URL: api/account/pwdfind
+             
+            Request:
+            {
+                phone:,
+                code:,
+                password,
+            }
+            
+            Response: 
+            {
+                status:0,
+                info:"成功"
+            }
 
 9. 搜索用户
             
@@ -547,6 +592,7 @@
             {
                 uid:,
                 token:,
+                dateType:,
                 page: ,
             }
             Response: 
@@ -653,6 +699,7 @@
                 date_type: ,
                 cost_type: ,
                 gender_limit: ,
+                people_limit:,
                 shcool_limit: [1,2,3,4]
             }
             Response: 

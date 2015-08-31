@@ -171,10 +171,8 @@ class AccountController extends BaseController {
         $school   = I('post.school');
         $stuCard  = I('post.stuCard');
 
-        $res = M('users')->where("id = '$id'")->find();
-        $tel = $res ['phone'];
 
-        $res = $this->tokenCheck($tel,$token);
+        $res = $this->tokenCheck($id,$token);
         if (!$res) {
             $return = [
                 'status' => '-109',
