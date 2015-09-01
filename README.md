@@ -624,7 +624,52 @@
                     .......
                     }
                 ]
+                count:共有几条
             }
+            
+        筛选
+        
+        URL: api/date/datefilter
+        
+        Request: 
+                    {
+                        sortLimit:,//1是正常，其他是按时间排序
+                        genderLimit:,//性别要求
+                        paymentLimit:,//支付方式要求
+                        timeLimit: ,//时间限定
+                        page:
+                    }
+                    Response: 
+                    {
+                        status:0,
+                        info:"成功",
+                        data:[
+                            {
+                                date_id: ,
+                                title: ,
+                                content: , //详情
+                                created_time: ,//发布时间
+                                date_type: ,//约会类型
+                                cost_type: ,//话费类型
+                                date_place: , //约会地点
+                                praise: ,//点赞
+                                praise_status: , //用户是否点赞, 1是0否
+                                comment_num: ,//评论数量
+                                apply_num: ,//报名人数
+                                uid: ,
+                                nickname: ,
+                                signature: ,
+                                avatar: ,
+                                gender: ,
+                                grade: ,//int
+                                role_id: ,
+                            },
+                            {
+                            .......
+                            }
+                        ]
+                        count:
+                    }
 
 
 2. 获取约详情
@@ -848,6 +893,7 @@
                                 info:"成功",
                                 data: 'string',
                             }
+                                                        
 ##发现接口
 1. 获取发现列表
      
