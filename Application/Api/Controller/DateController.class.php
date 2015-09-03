@@ -239,6 +239,13 @@ class DateController extends BaseController {
                          ->field('users.id as uid, date.title, date.content, date_type.type as date_type, date.cost_type, date.date_place, date.praise, date.id as date_id, users.avatar, users.nickname, users.signature, users.gender, users.grade, users.role_id, date.date_time, date.create_time, date.status as date_status, date.apply_num, date.comment_num')
                          ->limit(10)
                          ->select();
+        foreach($data as &$value) {
+            if(M('date_praise')->where(['user_id' => I('post.uid'), 'date_id' => $value['date_id']])->count()) {
+                $value['praise_status'] = 1;
+            } else {
+                $value['praise_status'] = 0;
+            }
+        }
         $this->ajaxReturn([
             'status' => 0,
             'info' => '成功',

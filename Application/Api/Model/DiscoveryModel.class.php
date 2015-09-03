@@ -14,7 +14,7 @@ class DiscoveryModel extends Model {
         $map = [
             'status' => 1
         ];
-        $field = 'id as discover_id, title as discover_title, caption as discover_caption, picture as discover_picture, time as discover_time, praise as discover_praise, status as discover_status';
+        $field = 'id as discover_id, title as discover_title, caption as discover_caption, picture as discover_picture, time as discover_time, praise as discover_praise, status as discover_status, apply_num, comment_num';
         $data = $this->where($map)
                     ->limit($offset, $limit)
                     ->field($field)
@@ -41,7 +41,7 @@ class DiscoveryModel extends Model {
 
     public function joinDiscover($input) {
         $map = [
-            'discover_id' => $input['discover_id']
+            'id' => $input['discover_id']
         ];
         if($this->where($map)->getField('status') != 1) {
             return false;
@@ -53,6 +53,7 @@ class DiscoveryModel extends Model {
             'status' => 1
         ];
         $this->add($data);
+        $this->where($map)->setInc('apply_num');
         return true;
     }
 
