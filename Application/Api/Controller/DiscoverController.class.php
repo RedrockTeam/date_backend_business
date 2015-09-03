@@ -17,8 +17,9 @@ class DiscoverController extends BaseController {
             'picture' => $input['picture'],//todo 图片给地址?
             'place' => $input['place'],
             'time' => $input['time'],
+            'user_id' => $input['uid'],
             'praise' => 0,
-            'status' => 1
+            'status' => 2
         ];
         if(!$this->checkData($data)) {
             $this->ajaxReturn([
@@ -83,13 +84,14 @@ class DiscoverController extends BaseController {
         }
         $data = [
             'user_id' => $input['uid'],
-            'date_id' => $input['discover_id'],
+            'id' => $input['discover_id'],
             'content' => $input['content'],
             'time'    => time(),
             'father_id' => $input['father_id']? $input['father_id']:0,
             'status' => 1
         ];
         M('discover_comment')->add($data);
+        M('discover')->where(['id', $input['discover_id']])->setInc('comment_num');
         $this->ajaxReturn([
             'status' => 0,
             'info' => '成功'
@@ -116,7 +118,7 @@ class DiscoverController extends BaseController {
             ]);
         }
     }
-    //取消点赞约
+    //取消点赞发现
     public function delPraiseDiscover() {
         $input = I('post.');
         $map = [
@@ -126,10 +128,11 @@ class DiscoverController extends BaseController {
         if(!M('discover_praise')->where($map)->count()) {
             $this->ajaxReturn([
                 'status' => 1,
-                'info' => '你没有赞过该约!'
+                'info' => '你没有赞过该发现!'
             ]);
         } else {
             M('discover_praise')->where($map)->delete();
+            M('discover')->where(['discover_id' => $input['discover_id']])->setDec('praise');
             $this->ajaxReturn([
                 'status' => 0,
                 'info' => '成功!'
