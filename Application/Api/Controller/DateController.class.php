@@ -184,6 +184,7 @@ class DateController extends BaseController {
             ]);
         } else {
             M('date_praise')->where($map)->delete();
+            M('date')->where(['date_id' => $input['daet_id']])->setDec('praise');
             $this->ajaxReturn([
                 'status' => 0,
                 'info' => '成功!'

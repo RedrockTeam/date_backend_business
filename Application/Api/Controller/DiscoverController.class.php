@@ -131,6 +131,7 @@ class DiscoverController extends BaseController {
             ]);
         } else {
             M('discover_praise')->where($map)->delete();
+            M('discover')->where(['discover_id' => $input['discover_id']])->setDec('praise');
             $this->ajaxReturn([
                 'status' => 0,
                 'info' => '成功!'
