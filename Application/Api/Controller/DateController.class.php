@@ -70,6 +70,10 @@ class DateController extends BaseController {
             $this->ajaxReturn($return);
         }
 
+        $weekend = $this->weekendJudge();
+
+        $weekend = $weekend ? 1 : 0;
+
         $save = [
             'title'        => $title,
             'content'      => $content,
@@ -79,7 +83,8 @@ class DateController extends BaseController {
             'limit_num'    => $people,
             'date_place'   => $place,
             'gender_limit' => $gender,
-            'status'       => '2'
+            'status'       => '2',
+            'weekend'      => $weekend
         ];
         $db_date = M('date');
         $db_date->add($save);
