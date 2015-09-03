@@ -246,7 +246,7 @@
 
     - 获取发起的约
      
-             URL: api/user/mydatelist
+            URL: api/user/mydatelist
             Request: 
             {
                 uid:,
@@ -265,7 +265,8 @@
                         title: ,
                         date_time: ,
                         create_time: ,
-                        date_status: 
+                        date_status: ,
+                        
                         },
                         {.....}
                 ]

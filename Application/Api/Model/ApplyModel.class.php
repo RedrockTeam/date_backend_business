@@ -17,7 +17,8 @@ class ApplyModel extends Model {
             ->limit($offset, $limit)
             ->join('join date on apply.date_id = date.id')
             ->join('join users on date.user_id = users.id')
-            ->field('users.id as uid, date.title, date.id as date_id, users.avatar, users.nickname, date.date_time, date.create_time, date.status as date_status')
+            ->join('join date_type on date.date_type = date_type.id')
+            ->field('users.id as uid, date.title, date.content, date_type.type as date_type, date.cost_type, date.date_place, date.praise, date.id as date_id, users.avatar, users.nickname, users.signature, users.gender, users.grade, users.role_id, date.date_time, date.create_time, date.status as date_status, date.apply_num, date.comment_num')
             ->select();
     }
 

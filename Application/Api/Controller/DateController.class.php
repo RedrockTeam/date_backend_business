@@ -242,7 +242,13 @@ class DateController extends BaseController {
             'date.content' => ['LIKE', $search, 'or'],
             '_logic' => 'or'
         ];
-        $data = M('date')->where($map)->group('date.id')->limit(10)->field('id as date_id, title, content')->select();
+        $data = M('date')->where($map)
+                         ->join('join users on date.user_id = users.id')
+                         ->join('join date_type on date.date_type = date_type.id')
+                         ->group('date.id')
+                         ->field('users.id as uid, date.title, date.content, date_type.type as date_type, date.cost_type, date.date_place, date.praise, date.id as date_id, users.avatar, users.nickname, users.signature, users.gender, users.grade, users.role_id, date.date_time, date.create_time, date.status as date_status, date.apply_num, date.comment_num')
+                         ->limit(10)
+                         ->select();
         $this->ajaxReturn([
             'status' => 0,
             'info' => '成功',
@@ -289,9 +295,9 @@ class DateController extends BaseController {
             }
         }
         //检查用户角色
-        if($user_info['role_id'] > 2) {
-            return 6;
-        }
+//        if($user_info['role_id'] > 2) {
+//            return 6;
+//        }
         return 1;
     }
 

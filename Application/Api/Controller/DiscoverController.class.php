@@ -153,7 +153,11 @@ class DiscoverController extends BaseController {
 //            'discover.content' => ['LIKE', $search, 'or'],
 //            '_logic' => 'or'
         ];
-        $data = M('discover')->where($map)->group('discover.id')->limit(10)->field('id as discover_id, title')->select();
+        $data = M('discover')->where($map)
+                             ->group('discover.id')
+                             ->field('id as discover_id, title as discover_title, caption as discover_caption, picture as discover_picture, time as discover_time, praise as discover_praise, status as discover_status')
+                             ->limit(10)
+                             ->select();
         $this->ajaxReturn([
             'status' => 0,
             'info' => '成功',
