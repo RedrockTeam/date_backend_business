@@ -78,7 +78,8 @@ class DateController extends BaseController {
             'cost_type'    => $payment,
             'limit_num'    => $people,
             'date_place'   => $place,
-            'gender_limit' => $gender
+            'gender_limit' => $gender,
+            'status'       => '2'
         ];
         $db_date = M('date');
         $db_date->add($save);
