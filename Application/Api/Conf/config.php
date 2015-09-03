@@ -37,21 +37,28 @@ return array(
         'user/addcare'        => 'Users/addCare', //关注某人
         'user/delcare'        => 'Users/delCare', //取关某人
         'user/search'         => 'Users/search', //搜索用户
-        'user/hotsearch'         => 'Users/hotsearch', //热搜用户
+        'user/hotsearch'      => 'Users/hotsearch', //热搜用户
+
+        //消息接口
+
+        'message/chattoken'  => 'Message/getToken', //获取聊天室Token
+        'message/msggroup'   => 'Message/messageGroup', //获取所有消息
+        'message/msgone'     => 'Message/messageOne', //获取单条消息
 
 
         //约会接口
-        'date/datelist'      => 'Test/datelist', //获取约列表 todo
+        'date/datelist'      => 'Homepage/dateGroup', //获取约列表
+        'date/datefilter'    => 'Homepage/filter',  //条件筛选
         'date/detaildate'    => 'Date/detailDate', //获取约详情
         'date/createdate'    => 'Date/createDate', //发布约
-        'date/judgedate'     => 'Test/judgedate', //接受/拒绝约 todo
+        'date/judgedate'     => 'Test/replyDate', //接受/拒绝约
         'date/applydate'     => 'Date/applyDate', //报名约
         'date/collectdate'   => 'Date/collectDate', //收藏约
         'date/commentdate'   => 'Date/commentDate', //评论
         'date/datepraise'    => 'Date/praiseDate', //点赞约
         'date/deldatepraise' => 'Date/delPraiseDate', //取消点赞约
         'date/search'        => 'Date/search', //搜索约
-        'date/hotsearch'        => 'Date/hotsearch', //热搜关键词
+        'date/hotsearch'     => 'Date/hotsearch', //热搜关键词
 
         //发现接口
         'discover/discoverlist'      => 'Discover/discoverList', //获取发现列表
