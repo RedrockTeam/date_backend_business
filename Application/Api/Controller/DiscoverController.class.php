@@ -17,8 +17,9 @@ class DiscoverController extends BaseController {
             'picture' => $input['picture'],//todo 图片给地址?
             'place' => $input['place'],
             'time' => $input['time'],
+            'user_id' => $input['uid'],
             'praise' => 0,
-            'status' => 1
+            'status' => 2
         ];
         if(!$this->checkData($data)) {
             $this->ajaxReturn([
