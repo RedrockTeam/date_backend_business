@@ -76,7 +76,7 @@ class HomepageController extends BaseController {
         $db_date = M('date');
 
         $count = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date_type.id = '$type'")->count();
-        $res   = $db_date->field("date.id AS id,dausers.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date_type.id = '$type'")->page("$page,10")->select();
+        $res   = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date_type.id = '$type'")->page("$page,20")->select();
 
         foreach ($res as $var) {
             $map ['user_id'] = $var ['uId'];

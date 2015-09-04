@@ -59,6 +59,7 @@ class DateController extends BaseController {
         $people  = I('post.people_limit');
         $gender  = I('post.gender_limit');
         $school  = I('post.school');
+        $uid     = I('post.uid');
 
         $nowTime = time();
 
@@ -66,6 +67,14 @@ class DateController extends BaseController {
             $return = [
                 'status' => '-201',
                 'info'   => '时间错误'
+            ];
+            $this->ajaxReturn($return);
+        }
+
+        if ($people < 1) {
+            $return = [
+                'status' => '-201',
+                'info'   => '人数不能为零'
             ];
             $this->ajaxReturn($return);
         }
@@ -83,8 +92,10 @@ class DateController extends BaseController {
             'limit_num'    => $people,
             'date_place'   => $place,
             'gender_limit' => $gender,
-            'status'       => '2',
-            'weekend'      => $weekend
+            'status'       => 2,
+            'weekend'      => $weekend,
+            'user_id'      => $uid,
+            'create_time'  => $time
         ];
         $db_date = M('date');
         $db_date->add($save);
@@ -140,8 +151,8 @@ class DateController extends BaseController {
                 $info = '不符合学校限制';
                 break;
             case 6:
-                $status = -3;
-                $info = '商家不能发布约, 只能发布发现';
+                $status = 1;
+                $info = '不能报名自己的约';
                 break;
             default:
                 $status = 1001;
@@ -298,10 +309,10 @@ class DateController extends BaseController {
                 }
             }
         }
-        //检查用户角色
-//        if($user_info['role_id'] > 2) {
-//            return 6;
-//        }
+        //检查用户自己
+        if($date_info['user_id'] == $uid) {
+            return 6;
+        }
         return 1;
     }
 
