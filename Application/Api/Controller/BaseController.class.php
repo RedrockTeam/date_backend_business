@@ -13,6 +13,20 @@ class BaseController extends Controller {
             ];
             $this->ajaxReturn($data);
         }
+
+        $uid   = I('post.uid');
+        $token = I('post.token');
+        $tokenCheck = $this->tokenCheck($uid,$token);
+
+        if ($tokenCheck) {
+
+        } else {
+            $return = [
+                'status' => '-109',
+                'info'   => 'Token错误'
+            ];
+            $this->ajaxReturn($return);
+        }
     }
 
     private function checkMethod () {
@@ -32,9 +46,9 @@ class BaseController extends Controller {
      * @param $token
      * @return bool
      */
-    protected function tokenCheck ($tel, $token) {
+    protected function tokenCheck ($uid, $token) {
         $param = [
-            'phone' => $tel,
+            'id'    => $uid,
             'token' => $token
         ];
 

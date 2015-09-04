@@ -22,29 +22,14 @@ class HomepageController extends BaseController {
 
         $db_date = M('date');
 
-        $timeLimit = $this->timeTrans($timeLimit);
+        $where = $this->whereCreate($type,$genderLimit,$paymentLimit,$timeLimit);
+
         if ($sortLimit == "1") {
-            if ($timeLimit == 0) {
-                $count = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date.status = '2' AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND date_type.id = '$type'")->count();
-                $res   = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date.status = '2' AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND date_type.id = '$type'")->page("$page,10")->select();
-            } else if ($timeLimit == 1) {
-                $count = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date.status = '2' AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND weekend = 1 AND date_type.id = '$type'")->count();
-                $res   = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date.status = '2' AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND weekend = 1 AND date_type.id = '$type'")->page("$page,10")->select();
-            } else {
-                $count = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date.status = '2' AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND date_time < '$timeLimit' AND date_type.id = '$type'")->count();
-                $res   = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date.status = '2' AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND date_time < '$timeLimit' AND date_type.id = '$type'")->page("$page,10")->select();
-            }
+            $count = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where($where)->count();
+            $res   = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where($where)->page("$page,20")->select();
         } else {
-            if ($timeLimit == 0) {
-                $count = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date.status = '2' AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND date_type.id = '$type'")->count();
-                $res = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date.status = '2' AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND date_type.id = '$type'")->order("date_time")->page("$page,10")->select();
-            } else if ($timeLimit == 1) {
-                $count = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date.status = '2' AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND weekend = 1 AND date_type.id = '$type'")->count();
-                $res = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date.status = '2' AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND weekend = 1 AND date_type.id = '$type'")->order("date_time")->page("$page,10")->select();
-            } else {
-                $count = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date.status = '2' AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND date_time < '$timeLimit' AND date_type.id = '$type'")->count();
-                $res = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where("date.status = '2' AND gender_limit = '$genderLimit' AND cost_type = '$paymentLimit' AND date_time < '$timeLimit' AND date_type.id = '$type'")->order("date_time")->page("$page,10")->select();
-            }
+            $count = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where($where)->count();
+            $res   = $db_date->field("date.id AS id,users.id AS uId,users.avatar AS avatar,users.nickname AS nickname,users.gender AS gender,users.role_id AS role,date.title AS title,date.content AS content,date_type.type AS type,date.comment_num AS comment,date.apply_num AS apply,date.praise AS praise,date.date_place AS place")->join("date_type ON date_type.id = date.date_type")->join("users ON users.id = date.user_id")->where($where)->page("$page,20")->order('date_time')->select();
         }
 
         foreach ($res as $var) {
@@ -124,7 +109,211 @@ class HomepageController extends BaseController {
                 $returnTime = 0;
                 break;
         }
-
         return $returnTime;
+    }
+
+    /**
+     * @param $dateType
+     * @param $gender
+     * @param $payment
+     * @param $time
+     * @return array
+     * 查询条件判定创建
+     */
+    private function whereCreate ($dateType,$gender,$payment,$time) {
+        $timeLimit = $this->timeTrans($time);
+
+        if ($timeLimit == 0) {
+            if ($dateType == 0) {
+                if ($gender == 0) {
+                    if ($payment == 0) {
+                        $where = [
+                            'date.status' => '2'
+                        ];
+                    } else {
+                        $where = [
+                            'date.status' => '2',
+                            'cost_type'   => $payment
+                        ];
+                    }
+                } else {
+                    if ($payment == 0) {
+                        $where = [
+                            'date.status' => '2',
+                            'gender_limit'=> $gender
+                        ];
+                    } else {
+                        $where = [
+                            'date.status' => '2',
+                            'cost_type'   => $payment,
+                            'gender_limit'=> $gender
+                        ];
+                    }
+                }
+            } else {
+                if ($gender == 0) {
+                    if ($payment == 0) {
+                        $where = [
+                            'date.status' => '2',
+                            'date_type'   => $dateType
+                        ];
+                    } else {
+                        $where = [
+                            'date.status' => '2',
+                            'cost_type'   => $payment,
+                            'date_type'   => $dateType
+                        ];
+                    }
+                } else {
+                    if ($payment == 0) {
+                        $where = [
+                            'date.status' => '2',
+                            'gender_limit'=> $gender,
+                            'date_type'   => $dateType
+                        ];
+                    } else {
+                        $where = [
+                            'date.status' => '2',
+                            'cost_type'   => $payment,
+                            'gender_limit'=> $gender,
+                            'date_type'   => $dateType
+                        ];
+                    }
+                }
+            }
+        } else if ($timeLimit == 1) {
+            if ($dateType == 0) {
+                if ($gender == 0) {
+                    if ($payment == 0) {
+                        $where = [
+                            'date.status' => '2',
+                            'weekend'     => '1'
+                        ];
+                    } else {
+                        $where = [
+                            'date.status' => '2',
+                            'cost_type'   => $payment,
+                            'weekend'     => '1'
+                        ];
+                    }
+                } else {
+                    if ($payment == 0) {
+                        $where = [
+                            'date.status' => '2',
+                            'gender_limit'=> $gender,
+                            'weekend'     => '1'
+                        ];
+                    } else {
+                        $where = [
+                            'date.status' => '2',
+                            'cost_type'   => $payment,
+                            'gender_limit'=> $gender,
+                            'weekend'     => '1'
+                        ];
+                    }
+                }
+            } else {
+                if ($gender == 0) {
+                    if ($payment == 0) {
+                        $where = [
+                            'date.status' => '2',
+                            'date_type'   => $dateType,
+                            'weekend'     => '1'
+                        ];
+                    } else {
+                        $where = [
+                            'date.status' => '2',
+                            'cost_type'   => $payment,
+                            'date_type'   => $dateType,
+                            'weekend'     => '1'
+                        ];
+                    }
+                } else {
+                    if ($payment == 0) {
+                        $where = [
+                            'date.status' => '2',
+                            'gender_limit'=> $gender,
+                            'date_type'   => $dateType,
+                            'weekend'     => '1'
+                        ];
+                    } else {
+                        $where = [
+                            'date.status' => '2',
+                            'cost_type'   => $payment,
+                            'gender_limit'=> $gender,
+                            'date_type'   => $dateType,
+                            'weekend'     => '1'
+                        ];
+                    }
+                }
+            }
+        } else {
+            if ($dateType == 0) {
+                if ($gender == 0) {
+                    if ($payment == 0) {
+                        $where = [
+                            'date.status' => '2',
+                            'date_time'   => array('elt',$timeLimit)
+                        ];
+                    } else {
+                        $where = [
+                            'date.status' => '2',
+                            'cost_type'   => $payment,
+                            'date_time'   => array('elt',$timeLimit)
+                        ];
+                    }
+                } else {
+                    if ($payment == 0) {
+                        $where = [
+                            'date.status' => '2',
+                            'gender_limit'=> $gender,
+                            'date_time'   => array('elt',$timeLimit)
+                        ];
+                    } else {
+                        $where = [
+                            'date.status' => '2',
+                            'cost_type'   => $payment,
+                            'gender_limit'=> $gender,
+                            'date_time'   => array('elt',$timeLimit)
+                        ];
+                    }
+                }
+            } else {
+                if ($gender == 0) {
+                    if ($payment == 0) {
+                        $where = [
+                            'date.status' => '2',
+                            'date_type'   => $dateType,
+                            'date_time'   => array('elt',$timeLimit)
+                        ];
+                    } else {
+                        $where = [
+                            'date.status' => '2',
+                            'cost_type'   => $payment,
+                            'date_type'   => $dateType,
+                            'date_time'   => array('elt',$timeLimit)
+                        ];
+                    }
+                } else {
+                    if ($payment == 0) {
+                        $where = [
+                            'date.status' => '2',
+                            'gender_limit'=> $gender,
+                            'date_type'   => $dateType,
+                            'date_time'   => array('elt',$timeLimit)
+                        ];
+                    } else {
+                        $where = [
+                            'date.status' => '2',
+                            'cost_type'   => $payment,
+                            'gender_limit'=> $gender,
+                            'date_type'   => $dateType,
+                            'date_time'   => array('elt',$timeLimit)
+                        ];
+                    }
+                }
+            }
+        }
+        return $where;
     }
 }
