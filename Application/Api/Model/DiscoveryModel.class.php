@@ -14,7 +14,7 @@ class DiscoveryModel extends Model {
         $map = [
             'status' => 1
         ];
-        $field = 'id as discover_id, title as discover_title, caption as discover_caption, picture as discover_picture, time as discover_time, praise as discover_praise, status as discover_status, apply_num, comment_num';
+        $field = 'id as discover_id, title as discover_title, caption as discover_caption, picture as discover_picture, time as discover_time, praise as discover_praise, status as discover_status, apply_num, comment_num, cost_type';
         $data = $this->where($map)
                     ->limit($offset, $limit)
                     ->field($field)
@@ -33,7 +33,7 @@ class DiscoveryModel extends Model {
         $map = [
             'id' => $discover_id
         ];
-        $field = 'id as discover_id, title as discover_title, caption as discover_caption, picture as discover_picture, time as discover_time, praise as discover_praise, status as discover_status';
+        $field = 'id as discover_id, title as discover_title, caption as discover_caption, picture as discover_picture, time as discover_time, praise as discover_praise, status as discover_status, content as discover_content, cost_type';
         return $this->where($map)
                     ->field($field)
                     ->find();

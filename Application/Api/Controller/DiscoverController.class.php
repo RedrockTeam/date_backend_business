@@ -9,7 +9,7 @@ class DiscoverController extends BaseController {
     const PLACE = 10;//活动地点
 
     //发布发现
-    public function createDiscovery() {
+    public function createDiscover() {
         $input = I('post.');
         $data = [
             'title' => $input['title'],
@@ -17,7 +17,9 @@ class DiscoverController extends BaseController {
             'picture' => $input['picture'],//todo 图片给地址?
             'place' => $input['place'],
             'time' => $input['time'],
+            'cost_type' => $input['cost_type'],
             'user_id' => $input['uid'],
+            'content' => $input['content'],
             'praise' => 0,
             'status' => 2
         ];
@@ -37,6 +39,12 @@ class DiscoverController extends BaseController {
         $page = I('post.page');
         $discover = new DiscoveryModel();
         $data = $discover->getDiscoverList($page);
+        foreach($data as &$value)
+        if(M('discover_praise')->where(['discover_id' => $value['discover_id'], 'user_id' => I('post.uid')])->count()) {
+            $data['praise_status'] = 1;
+        } else {
+            $data['praise_status'] = 0;
+        }
         $this->ajaxReturn([
             'status' => 0,
             'info' => '成功',
@@ -49,6 +57,11 @@ class DiscoverController extends BaseController {
         $discover_id = I('post.discover_id');
         $discover = new DiscoveryModel();
         $data = $discover->getDiscover($discover_id);
+        if(M('discover_praise')->where(['discover_id' => $discover_id, 'user_id' => I('post.uid')])->count()) {
+            $data['praise_status'] = 1;
+        } else {
+            $data['praise_status'] = 0;
+        }
         $this->ajaxReturn([
             'status' => 0,
             'info' => '成功',

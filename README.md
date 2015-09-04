@@ -1024,6 +1024,7 @@
                         token: ,
                         title: ,
                         caption: ,//副标题
+                        content: ,//内容
                         picture: ,//图片地址
                         place: ,//地点
                         time: ,//开始时间
