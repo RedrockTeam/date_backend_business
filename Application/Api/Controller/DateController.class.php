@@ -95,7 +95,7 @@ class DateController extends BaseController {
             'status'       => 2,
             'weekend'      => $weekend,
             'user_id'      => $uid,
-            'create_time'  => $time
+            'create_time'  => $nowTime
         ];
         $db_date = M('date');
         $db_date->add($save);
