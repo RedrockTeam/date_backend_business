@@ -58,12 +58,12 @@ class DateController extends BaseController {
         $place   = I('post.date_place');
         $people  = I('post.people_limit');
         $gender  = I('post.gender_limit');
-        $school  = I('post.school');
+        $school  = I('post.school_limit');
         $uid     = I('post.uid');
-
+        //todo 有心情可以验证下$type, $payment和$school的合法性
         $nowTime = time();
 
-        if ($nowTime > $time) {
+        if ($nowTime >= $time) {
             $return = [
                 'status' => '-201',
                 'info'   => '时间错误'
@@ -79,6 +79,30 @@ class DateController extends BaseController {
             $this->ajaxReturn($return);
         }
 
+        if(strlen($place) < 1) {
+            $return = [
+                'status' => '-201',
+                'info'   => '地点不能为空'
+            ];
+            $this->ajaxReturn($return);
+        }
+
+        if(strlen($title) < 1) {
+            $return = [
+                'status' => '-201',
+                'info'   => '标题不能为空'
+            ];
+            $this->ajaxReturn($return);
+        }
+
+        if(strlen($content) < 1) {
+            $return = [
+                'status' => '-201',
+                'info'   => '内容不能为空'
+            ];
+            $this->ajaxReturn($return);
+        }
+        $gender = $gender == 1? $gender : ($gender == 2)? $gender : 0;
         $weekend = $this->weekendJudge();
 
         $weekend = $weekend ? 1 : 0;
