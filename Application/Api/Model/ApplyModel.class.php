@@ -11,7 +11,7 @@ class ApplyModel extends Model {
         $map = [
             'apply.user_id' => $input['uid']
         ];
-        $limit = 10;
+        $limit = 20;
         $offset = ($input['page']-1)*$limit;
         $data = $this->where($map)
             ->limit($offset, $limit)

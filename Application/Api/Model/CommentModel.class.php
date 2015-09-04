@@ -9,7 +9,7 @@ class CommentModel extends Model {
 
     public function getComment($input) {
         $page = $input['page']>0?$input['page']:1;
-        $limit = 10;
+        $limit = 20;
         $offset = ($page-1)*$limit;
         $map = [
             'date_id' => $input['date_id']

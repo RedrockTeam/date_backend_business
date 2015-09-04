@@ -8,7 +8,7 @@ class DiscoveryModel extends Model {
     protected $tableName  = 'discover';
 
     public function getDiscoverList($page, $uid) {
-        $limit = 10;
+        $limit = 20;
         $page = $page > 0? $page : 1;
         $offset = ($page - 1) * $limit;
         $map = [

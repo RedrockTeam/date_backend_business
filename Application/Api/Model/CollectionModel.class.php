@@ -12,7 +12,7 @@ class CollectionModel extends Model {
         $map = [
             'collection.user_id' => $input['uid']
         ];
-        $limit = 10;
+        $limit = 20;
         $offset = ($input['page']-1)*$limit;
         return $this->where($map)
                     ->limit($offset, $limit)

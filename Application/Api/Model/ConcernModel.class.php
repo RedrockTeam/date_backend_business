@@ -26,7 +26,7 @@ class ConcernModel extends Model {
     //关注我的人列表
     public function careMe($input) {
         $page = $input['page'] > 0 ? $input['page'] : 1;
-        $limit = 10;
+        $limit = 20;
         $offset = ($page - 1) * $limit;
         $map = [
             'to' => $input['uid']
@@ -41,7 +41,7 @@ class ConcernModel extends Model {
     //我关注的人列表
     public function myCare($input) {
         $page = $input['page'] > 0 ? $input['page'] : 1;
-        $limit = 10;
+        $limit = 20;
         $offset = ($page - 1) * $limit;
         $map = [
             'from' => $input['uid']
