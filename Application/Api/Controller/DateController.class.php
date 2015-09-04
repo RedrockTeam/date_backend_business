@@ -16,7 +16,7 @@ class DateController extends BaseController {
         $date = new DateModel();
         $data = $date->detaildate($date_id, $uid);
         $comment = new CommentModel();
-        $data['date_comment'] = $comment->getComment(['date_id' => $date_id, $page = 1]);
+        $data['date_comment'] = $comment->getComment(['date_id' => $date_id, 'page' => 1]);
         $this->ajaxReturn([
             'status' => 0,
             'info' => '成功',
@@ -211,6 +211,7 @@ class DateController extends BaseController {
             ]);
         }
     }
+
     //取消点赞约
     public function delPraiseDate() {
         $input = I('post.');
@@ -231,6 +232,18 @@ class DateController extends BaseController {
                 'info' => '成功!'
             ]);
         }
+    }
+
+    //获取评论
+    public function getComment() {
+        $input =  I('post.');
+        $comment = new CommentModel();
+        $data = $comment->getComment(['date_id' => $input['date_id'], 'page' => $input['page']]);
+        $this->ajaxReturn([
+            'status' => 0,
+            'info'   => '成功',
+            'data'   => $data
+        ]);
     }
 
     //评论约

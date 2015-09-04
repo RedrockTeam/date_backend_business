@@ -894,6 +894,24 @@
                                 info:"成功",
                                 data: 'string',
                             }
+                           
+11. 获取约评论
+
+            URL: api/discover/getComment
+                                 	
+                                      Request: 
+                                      {
+                                          uid: ,
+                                          token: ,
+                                          date_id: ,
+                                          page: 
+                                      }
+                                      Response: 
+                                      {
+                                          status:0,
+                                          info:"成功", 
+                                          data: []
+                                      } 
                                                         
 ##发现接口
 1. 获取发现列表
@@ -1085,3 +1103,21 @@
                               status:0,
                               info:"成功",    
                           }
+                          
+8. 获取发现评论
+
+            URL: api/discover/getComment
+                                 	
+                                      Request: 
+                                      {
+                                          uid: ,
+                                          token: ,
+                                          discover_id: ,
+                                          page: 
+                                      }
+                                      Response: 
+                                      {
+                                          status:0,
+                                          info:"成功", 
+                                          data: []
+                                      }

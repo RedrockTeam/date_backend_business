@@ -59,7 +59,7 @@ class DiscoverController extends BaseController {
         $discover = new DiscoveryModel();
         $data = $discover->getDiscover($discover_id);
         $comment = new DiscoverCommentModel();
-        $data['discover_comment'] = $comment->getComment(['discover_id' => $discover_id, $page = 1]);
+        $data['discover_comment'] = $comment->getComment(['discover_id' => $discover_id, 'page' => 1]);
         if(M('discover_praise')->where(['discover_id' => $discover_id, 'user_id' => I('post.uid')])->count()) {
             $data['praise_status'] = 1;
         } else {
@@ -87,6 +87,18 @@ class DiscoverController extends BaseController {
                 'info' => '成功'
             ]);
         }
+    }
+
+    //获取评论
+    public function getComment() {
+        $input =  I('post.');
+        $comment = new DiscoverCommentModel();
+        $data = $comment->getComment(['discover_id' => $input['discover_id'], 'page' => $input['page']]);
+        $this->ajaxReturn([
+            'status' => 0,
+            'info'   => '成功',
+            'data'   => $data
+        ]);
     }
 
     //评论发现

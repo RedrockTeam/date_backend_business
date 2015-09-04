@@ -59,6 +59,7 @@ return array(
         'date/deldatepraise' => 'Date/delPraiseDate', //取消点赞约
         'date/search'        => 'Date/search', //搜索约
         'date/hotsearch'     => 'Date/hotsearch', //热搜关键词
+        'date/comment'       => 'Date/getComment', //获取评论
 
         //发现接口
         'discover/discoverlist'      => 'Discover/discoverList', //获取发现列表
@@ -69,5 +70,7 @@ return array(
         'discover/discoverpraise'    => 'Discover/praiseDiscover', //评论发现
         'discover/deldiscoverpraise' => 'Discover/delPraiseDiscover', //评论发现
         'discover/search'            => 'discover/search', //搜索
-]
+        'discover/comment'       => 'discover/getComment', //获取评论
+
+    ]
   );
