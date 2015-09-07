@@ -8,5 +8,11 @@ class ManageController extends BaseController {
         $this->display();
     }
 
-
+    public function judge() {
+        $data = M('discover')->where(['status' => 2])
+                             ->join('JOIN users ON discover.user_id = users.id')
+                             ->select();
+        $this->assign('data', $data);
+        $this->display();
+    }
 }
