@@ -7,6 +7,7 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
+                        <th>id</th>
                         <th>商家</th>
                         <th>标题</th>
                         <th>副标题</th>
@@ -19,6 +20,7 @@
 
                     <volist id="vo" name="data">
                         <tr>
+                            <td class="">{$vo.discover_id}</td>
                             <td class="">{$vo.nickname}</td>
                             <td class="">{$vo.title}</td>
                             <td class="">{$vo.caption}</td>
@@ -31,12 +33,12 @@
                                 </a>
                             </td>
                             <td class="">
-                                <button class="btn btn-sm btn-success pass">
+                                <button class="btn btn-sm btn-success pass" data-id="{$vo.discover_id}">
                                 通过
                                 </button>
                             </td>
                             <td class="">
-                                <button class="btn btn-sm btn-danger nopass">
+                                <button class="btn btn-sm btn-danger nopass" data-id="{$vo.discover_id}">
                                 不通过
                                 </button>
                             </td>
@@ -47,5 +49,45 @@
         </div>
 
     </div>
+<script>
+    $('.pass').on('click', function() {
+        var discover_id = $(this).data('id');
+        var that = $(this);
+        $.ajax({
+            type: "POST",
+            url: "{:U('Manage/pass')}",
+            data: {id:discover_id},
+            dataType: "json",
+            success: function(data){
+                if(data.status == 200){
+                    that.parents('tr').remove();
+
+                    alert(data.info);
+                } else {
+                    alert('未知错误');
+                }
+            }
+        });
+    })
+
+    $('.nopass').on('click', function() {
+        var discover_id = $(this).data('id');
+        var that = $(this);
+        $.ajax({
+            type: "POST",
+            url: "{:U('Manage/nopass')}",
+            data: {id:discover_id},
+            dataType: "json",
+            success: function(data){
+                if(data.status == 200){
+                    that.parents('tr').remove();
+                    alert(data.info);
+                } else {
+                    alert('未知错误');
+                }
+            }
+        });
+    })
+</script>
 </body>
 </html>

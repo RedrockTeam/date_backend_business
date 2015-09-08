@@ -16,4 +16,24 @@ class ManageController extends BaseController {
         $this->assign('data', $data);
         $this->display();
     }
+
+    //通过
+    public function pass() {
+        $id = I('post.id');
+        M('discover')->where(['id' => $id])->save(['status' => 1]);
+        $this->ajaxReturn([
+            'status' => 200,
+            'info'   => '成功'
+        ]);
+    }
+
+    //不通过
+    public function nopass() {
+        $id = I('post.id');
+        M('discover')->where(['id' => $id])->save(['status' => 3]);
+        $this->ajaxReturn([
+            'status' => 200,
+            'info'   => '成功'
+        ]);
+    }
 }
