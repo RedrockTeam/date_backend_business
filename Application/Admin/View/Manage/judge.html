@@ -16,28 +16,32 @@
                         <th>不通过</th>
                     </tr>
                     </thead>
-                    <volist id="data" name="vo"></volist>
-                    <tr>
-                        <td class="">{$vo.nickname}</td>
-                        <td class="">{$vo.title}</td>
-                        <td class="">{$vo.caption}</td>
-                        <td class="">{$vo.content}</td>
-                        <td class="{$vo.picture}">
-                            <a href="" target="_blank">
-                                点击查看图片
-                            </a>
-                        </td>
-                        <td class="">
-                            <button class="btn btn-sm btn-success pass">
-                            通过
-                            </button>
-                        </td>
-                        <td class="">
-                            <button class="btn btn-sm btn-danger nopass">
-                            不通过
-                            </button>
-                        </td>
-                    </tr>
+
+                    <volist id="vo" name="data">
+                        <tr>
+                            <td class="">{$vo.nickname}</td>
+                            <td class="">{$vo.title}</td>
+                            <td class="">{$vo.caption}</td>
+                            <td class="">
+                                <a href="#" title="{$vo.content}">悬停鼠标查看详情</a>
+                            </td>
+                            <td class="">
+                                <a href="{$vo.picture}" target="_blank">
+                                    点击查看图片
+                                </a>
+                            </td>
+                            <td class="">
+                                <button class="btn btn-sm btn-success pass">
+                                通过
+                                </button>
+                            </td>
+                            <td class="">
+                                <button class="btn btn-sm btn-danger nopass">
+                                不通过
+                                </button>
+                            </td>
+                        </tr>
+                    </volist>
                 </table>
             </div>
         </div>
