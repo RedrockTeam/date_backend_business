@@ -31,7 +31,7 @@ class DateModel extends Model {
     }
 
     //获取约详情
-    public function detaildate($date_id, $uid) {
+    public function detaildate($date_id, $uid='') {
         $date = $this->where(['id' => $date_id])
                      ->field('id as date_id, title, date_type, content, date_time, date_place, cost_type, limit_num as people_limit, gender_limit, status as date_status, user_id as uid, apply_num, weekend')
                      ->find();

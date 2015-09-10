@@ -9,7 +9,7 @@
 namespace Api\Controller;
 use Think\Controller;
 
-class HomepageController extends BaseController {
+class HomepageController extends Controller {
 
     public function filter () {
         $sortLimit    = I('post.sortLimit');
