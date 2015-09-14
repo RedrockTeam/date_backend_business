@@ -49,7 +49,7 @@ return array(
         //约会接口
         'date/datelist'      => 'Homepage/dateGroup', //获取约列表
         'date/datefilter'    => 'Homepage/filter',  //条件筛选
-        'date/detaildate'    => 'Date/detailDate', //获取约详情
+        'date/detaildate'    => 'DatePublic/detailDate', //获取约详情
         'date/createdate'    => 'Date/createDate', //发布约
         'date/judgedate'     => 'Test/replyDate', //接受/拒绝约
         'date/applydate'     => 'Date/applyDate', //报名约
@@ -57,9 +57,9 @@ return array(
         'date/commentdate'   => 'Date/commentDate', //评论
         'date/datepraise'    => 'Date/praiseDate', //点赞约
         'date/deldatepraise' => 'Date/delPraiseDate', //取消点赞约
-        'date/search'        => 'Date/search', //搜索约
-        'date/hotsearch'     => 'Date/hotsearch', //热搜关键词
-        'date/comment'       => 'Date/getComment', //获取评论
+        'date/search'        => 'DatePublic/search', //搜索约
+        'date/hotsearch'     => 'DatePublic/hotsearch', //热搜关键词
+        'date/comment'       => 'DatePublic/getComment', //获取评论
 
         //发现接口
         'discover/discoverlist'      => 'Discover/discoverList', //获取发现列表
