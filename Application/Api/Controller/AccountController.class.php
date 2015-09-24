@@ -206,7 +206,7 @@ class AccountController extends Controller {
         $save = [
             'user_id'   => $id,
             'real_name' => $realName,
-            'school_id'    => $school,
+            'school_id' => $school,
             'stuPic'    => $stuCard,
             'status'    => '0'
         ];
