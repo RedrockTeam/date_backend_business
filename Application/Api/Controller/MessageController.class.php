@@ -12,17 +12,7 @@ use Think\Controller;
 class MessageController extends BaseController {
 
     public function getToken () {
-        $tel   = I('post.tel');
-        $token = I('post.token');
-
-        $res = $this->tokenCheck($tel,$token);
-        if (!$res) {
-            $return = [
-                'status' => '-109',
-                'info'   => 'Token Error'
-            ];
-            $this->ajaxReturn($return);
-        }
+        $tel = I('post.phone');
 
         $info  = M('users')->where("phone = '$tel'")->find();
         $id    = $info ['id'];
