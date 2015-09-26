@@ -24,6 +24,12 @@ class DiscoverController extends BaseController {
             'praise' => 0,
             'status' => 2
         ];
+        if($input['time']<=time()) {
+            $this->ajaxReturn([
+                'status' => 1,
+                'info' => '截止时间不能小于当前时间'
+            ]);
+        }
         if(!$this->checkData($data)) {
             $this->ajaxReturn([
                 'status' => 1,

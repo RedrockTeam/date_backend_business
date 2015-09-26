@@ -8,6 +8,47 @@ class ManageController extends BaseController {
         $this->display();
     }
 
+    //添加发现
+    public function addDiscovery() {
+        $data = I('post.');
+
+        if(mb_strlen($data['title'])<1) {
+            $this->error('标题不能为空');
+        }
+        if(mb_strlen($data['caption'])<1) {
+            $this->error('副标题不能为空');
+        }
+        if(mb_strlen($data['place'])<1) {
+            $this->error('地点不能为空');
+        }
+        if(mb_strlen($data['time'])<1) {
+            $this->error('时间不能为空');
+        }
+        if(mb_strlen($data['content'])<1) {
+            $this->error('内容不能为空');
+        }
+        $upload = new \Think\Upload(c('upload'));// 实例化上传类
+        // 上传文件
+        $info   =   $upload->upload();
+        if(!$info) {// 上传错误提示错误信息
+            $this->error($upload->getError());
+        }else{// 上传成功 获取上传文件信息
+            foreach($info as $file){
+
+                $data['picture'] = $_SERVER['http_host'].$file['savepath'].$file['savename'];
+            }
+        }
+        $data['praise'] = 0;
+        $data['status'] = 1;
+        $data['user_id'] = 1;
+
+        M('discover')->add($data);
+        
+        $this->success('成功');
+
+    }
+
+    //审核发现
     public function judge() {
         $data = M('discover')->where(['discover.status' => 2])
                              ->join('JOIN users ON discover.user_id = users.id')
