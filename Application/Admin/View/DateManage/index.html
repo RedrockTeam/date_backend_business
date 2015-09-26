@@ -1,0 +1,58 @@
+<include file='Public/header' />
+<body>
+<include file='Public/sidebar' />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>标题</th>
+                        <th>简介</th>
+                        <th>状态</th>
+                    </tr>
+                    </thead>
+                    <volist id="vo" name="data">
+                        <tr>
+                            <td class="">{$vo.id}</td>
+                            <td class="">{$vo.title}</td>
+                            <td class="">{$vo.content}</td>
+                            <td class="">{$vo['status'] == 0? '结束':($vo['status'] == 1? '成功': ($vo['status'] == 2? '报名': '其他'))}</td>
+                        </tr>
+                    </volist>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <form action="{:U('DateManage/search')}" method="post">
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <label>搜索类型</label>
+                    <select class="form-control" name="search_id">
+                        <option value="1">按标题</option>
+                        <option value="2">按内容</option>
+                        <option value="3">按id</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label>搜索内容</label>
+                    <input type="text" class="form-control" required name="content" placeholder="搜索内容">
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div class="form-group" style="margin-top: 25px">
+                    <label></label>
+                    <button type="submit" class="btn btn-default">搜索</button>
+                </div>
+            </div>
+            <div class="col-lg-7">
+
+            </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
