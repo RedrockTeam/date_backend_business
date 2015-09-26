@@ -9,6 +9,11 @@ class ManageController extends BaseController {
     }
 
     //添加发现
+    public function add() {
+        $this->display();
+    }
+
+    //添加发现
     public function addDiscovery() {
         $data = I('post.');
 
@@ -34,16 +39,16 @@ class ManageController extends BaseController {
             $this->error($upload->getError());
         }else{// 上传成功 获取上传文件信息
             foreach($info as $file){
-
-                $data['picture'] = $_SERVER['http_host'].$file['savepath'].$file['savename'];
+                echo $file['savepath'].$file['savename'];
+                $data['picture'] = 'http://:'.$_SERVER['HTTP_HOST'].__APP__.'/Public/upload/'.$file['savepath'].$file['savename'];
             }
         }
+        $data['time'] = strtotime($data['time']);
         $data['praise'] = 0;
         $data['status'] = 1;
         $data['user_id'] = 1;
-
         M('discover')->add($data);
-        
+
         $this->success('成功');
 
     }
