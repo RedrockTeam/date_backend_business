@@ -1,0 +1,67 @@
+<include file='Public/header' />
+<body>
+<include file='Public/sidebar' />
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>id</th>
+          <th>用户名</th>
+          <th>删除</th>
+        </tr>
+        </thead>
+        <volist id="vo" name="list">
+          <tr>
+            <td class="">{$vo.id}</td>
+            <td class="">{$vo.username}</td>
+            <td class="">
+              <button class="btn btn-sm btn-danger" onclick="ice({$vo.id})">
+                删除
+              </button>
+            </td>
+          </tr>
+        </volist>
+      </table>
+    </div>
+  <div class="modal fade" id="doIce" tabindex="-1" role="dialog"
+       aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close"
+                  data-dismiss="modal" aria-hidden="true">
+            &times;
+          </button>
+          <h4 class="modal-title" id="myModalLabel">
+            确认删除
+          </h4>
+        </div>
+        <div class="modal-body">
+          <h2>是否确认删除该用户?</h2>
+          <br/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default"
+                  data-dismiss="modal">关闭
+          </button>
+          <a id="Ice">
+            <button type="button" class="btn btn-danger">
+              删除
+            </button>
+          </a>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+  </div>
+</div>
+<script>
+  function ice(id){
+    $('#doIce').modal('show').on('shown.bs.modal',function(){
+      document.getElementById('Ice').setAttribute("href","__MODULE__/Admin/admin_del&id="+id);
+    })
+  }
+</script>
+</body>
+</html>
