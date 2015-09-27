@@ -3,7 +3,7 @@ namespace Admin\Controller;
 use Think\Controller;
 class BussinessController extends BaseController {
     public function index() {
-        $page = I('get.page');
+        $page = I('get.p');
         $users = M('users');
         $data = $users->page($page, 1)
                           ->where(['role_id' => 3])
@@ -11,6 +11,7 @@ class BussinessController extends BaseController {
                           ->select();
         $count      = $users->where(['role_id' => 3])->count();// 查询满足要求的总记录数
         $Page       = new \Think\Page($count,1);// 实例化分页类 传入总记录数和每页显示的记录数
+        $Page->setConfig('first','Previous');
         $show       = $Page->show();// 分页显示输出
         $this->assign('page',$show);// 赋值分页输出
         $this->assign('data', $data);
