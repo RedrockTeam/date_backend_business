@@ -4,8 +4,13 @@ use Think\Controller;
 class DateManageController extends BaseController {
 
     public function index(){
-        $page = I('get.page');
-        $data = M('date')->page($page, 15)->select();
+        $page = I('get.p');
+        $date = M('date');
+        $data = $date->page($page, 30)->select();
+        $count      = $date->count();// 查询满足要求的总记录数
+        $Page       = new \Think\Page($count,30);// 实例化分页类 传入总记录数和每页显示的记录数
+        $show       = $Page->show();// 分页显示输出
+        $this->assign('page',$show);// 赋值分页输出
         $this->assign('data', $data);
         $this->display();
     }
