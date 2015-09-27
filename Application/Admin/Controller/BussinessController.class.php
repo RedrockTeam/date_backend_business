@@ -4,10 +4,15 @@ use Think\Controller;
 class BussinessController extends BaseController {
     public function index() {
         $page = I('get.page');
-        $data = M('users')->page($page, 30)
+        $users = M('users');
+        $data = $users->page($page, 1)
                           ->where(['role_id' => 3])
                           ->field('id as uid, nickname, gender, phone, status')
                           ->select();
+        $count      = $users->where(['role_id' => 3])->count();// 查询满足要求的总记录数
+        $Page       = new \Think\Page($count,1);// 实例化分页类 传入总记录数和每页显示的记录数
+        $show       = $Page->show();// 分页显示输出
+        $this->assign('page',$show);// 赋值分页输出
         $this->assign('data', $data);
         $this->display();
     }
@@ -58,7 +63,7 @@ class BussinessController extends BaseController {
         }
         $map['role_id'] = 3;
         $data = M('users')
-            ->where()
+            ->where($map)
             ->field('id as uid, nickname, gender, phone, status')
             ->select();
         $this->assign('data', $data);
