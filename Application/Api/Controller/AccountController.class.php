@@ -83,7 +83,8 @@ class AccountController extends Controller {
             'phone'    => $tel,
             'gender'   => $gender,
             'nickname' => $nickname,
-            'signature'=> $signature
+            'signature'=> $signature,
+            'm_time'   => time()
         ];
 
         if (!$avatar) {

@@ -1,0 +1,90 @@
+<include file='Public/header' />
+<body>
+<include file='Public/sidebar' />
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>id</th>
+          <th>昵称</th>
+          <th>性别</th>
+          <th>注册时间</th>
+          <th>头像</th>
+          <th>用户类型</th>
+          <th>详情</th>
+        </tr>
+        </thead>
+        <volist id="vo" name="list">
+          <tr>
+            <td class="">{$vo.id}</td>
+            <td class="">{$vo.nickname}</td>
+            <td class="">{$vo.gender}</td>
+            <td class="">{$vo.m_time|date="Y-m-d",###}</td>
+            <td class="">
+              <a href="{$vo.avatar}">点击查看头像</a></td>
+            <td class=""><if condition="$vo['role_id'] eq 1">未实名用户</if>
+              <if condition="$vo['role_id'] eq 2">实名用户</if></td>
+            <td class="">
+              <button class="btn btn-sm btn-success pass" onclick="info({$vo.id})">
+                通过
+              </button>
+            </td>
+          </tr>
+        </volist>
+      </table>
+    </div>
+    {$show}
+  </div>
+  <div class="row">
+    <form action="__MODULE__/User/search" method="post">
+      <div class="col-lg-1">
+        <div class="form-group">
+          <label>搜索类型</label>
+          <select class="form-control" name="search_id">
+            <option value="1">按用户名</option>
+            <option value="2">按电话</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="form-group">
+          <label>搜索内容</label>
+          <input type="text" class="form-control" required name="content" placeholder="搜索内容">
+        </div>
+      </div>
+      <div class="col-lg-1">
+        <div class="form-group" style="margin-top: 25px">
+          <label></label>
+          <button type="submit" class="btn btn-default">搜索</button>
+        </div>
+      </div>
+      <div class="col-lg-7">
+
+      </div>
+    </form>
+  </div>
+
+</div>
+<script>
+  function info (id) {
+
+    $.ajax({
+      type : 'POST',
+      url  : "{:U('User/user_info')}",
+      data : 'userId='+id,
+      dataType : 'json',
+      error: function (request) {
+        alert('获取失败')
+      } ,
+      success : function (response) {
+        var data = response.data;
+        var
+      }
+    })
+
+  }
+</script>
+</body>
+</html>
