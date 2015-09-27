@@ -102,7 +102,33 @@ class UserController extends BaseController
             ->where($map)
             ->where("role_id != 3")
             ->select();
-        $this->assign('data', $data);
+        $this->assign('list', $data);
         $this->display('user_group');
+    }
+
+    public function realname_group () {
+        $list = M('verify')->where("status = 0")->join("school ON school.id = verify.school_id")->select();
+        $this->assign('list',$list);
+        $this->display();
+    }
+
+    public function user_pass ($id) {
+        $info = M('verify')->where("user_id = '$id'")->find();
+        $info ['status'] = "1";
+        M('verify')->where("user_id = '$id'")->save($info);
+
+        $save = [
+            'realname' => $info ['realname'],
+            'status'   => '2'
+        ];
+
+        M('users')->where("id = '$id'")->save($save);
+        $this->success('审核通过');
+    }
+
+    public function user_false($id) {
+        $save ['status'] = '2';
+        M('verify')->where("user_id = '$id'")->save($save);
+        $this->success('操作成功');
     }
 }
