@@ -13,7 +13,9 @@
           <th>注册时间</th>
           <th>头像</th>
           <th>用户类型</th>
+          <th>用户状态</th>
           <th>详情</th>
+          <th>冻结</th>
         </tr>
         </thead>
         <volist id="vo" name="list">
@@ -26,16 +28,23 @@
               <a href="{$vo.avatar}">点击查看头像</a></td>
             <td class=""><if condition="$vo['role_id'] eq 1">未实名用户</if>
               <if condition="$vo['role_id'] eq 2">实名用户</if></td>
+            <td calss=""><if condition="$vo['status'] eq 0">用户已被冻结</if>
+              <if condition="$vo['status'] eq 1">正常用户</if></td>
             <td class="">
-              <button class="btn btn-sm btn-success pass" onclick="info({$vo.id})">
-                通过
+              <button class="btn btn-sm btn-info pass" onclick="info({$vo.id})">
+                详情
+              </button>
+            </td>
+            <td class="">
+              <button class="btn btn-sm btn-danger" onclick="ice({$vo.id})">
+                冻结/解冻
               </button>
             </td>
           </tr>
         </volist>
       </table>
     </div>
-    {$show}
+    <div style="text-align: center"><nav><ul class="pagination">{$page}</ul></nav></div>
   </div>
   <div class="row">
     <form action="__MODULE__/User/search" method="post">
@@ -65,14 +74,117 @@
       </div>
     </form>
   </div>
-
+  <div class="modal fade" id="info" tabindex="-1" role="dialog"
+       aria-labelledby="myModalLabel" aria-hidden="true">
+    <form action="__MODULE__/User/user_edit" method="post">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close"
+                  data-dismiss="modal" aria-hidden="true">
+            &times;
+          </button>
+          <h4 class="modal-title" id="myModalLabel1">
+            用户详情
+          </h4>
+        </div>
+        <input type="text" name="doc_id" id="doc_id" style="display: none">
+        <div class="modal-body">
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon1">昵称</span>
+            <input type="text" class="form-control" id="nickname" name="nickname" aria-describedby="sizing-addon1">
+            <input type="hidden" id="id" name="id">
+          </div>
+          <br/>
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon">电话</span>
+            <input type="text" class="form-control" id="phone" aria-describedby="sizing-addon1" disabled>
+          </div>
+          <br/>
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon22s">性别</span>
+            <input type="text" class="form-control" id="gender" name="gender" aria-describedby="sizing-addon1" disabled>
+          </div>
+          <br/>
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon2s">用户类型</span>
+            <input type="text" class="form-control" id="role_id" aria-describedby="sizing-addon1" disabled>
+          </div>
+          <br/>
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addons">关注数量</span>
+            <input type="text" class="form-control" id="scan" aria-describedby="sizing-addon1" disabled>
+          </div>
+          <br/>
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-adon22s">粉丝数量</span>
+            <input type="text" class="form-control" id="fans" aria-describedby="sizing-addon1" disabled>
+          </div>
+          <br/>
+          <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon2">签名</span>
+            <textarea type="text" class="form-control" id="signature" name="signature" aria-describedby="sizing-addon1"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-info">
+            更改
+          </button>
+          <button type="button" class="btn btn-default"
+                  data-dismiss="modal">关闭
+          </button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+    </form>
+    </div>
+  <div class="modal fade" id="doIce" tabindex="-1" role="dialog"
+       aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close"
+                  data-dismiss="modal" aria-hidden="true">
+            &times;
+          </button>
+          <h4 class="modal-title" id="myModalLabel">
+            确认冻结(解冻)
+          </h4>
+        </div>
+        <div class="modal-body">
+          <h2>是否确认冻结(解冻)该用户?</h2>
+          <br/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default"
+                  data-dismiss="modal">关闭
+          </button>
+          <a id="Ice">
+            <button type="button" class="btn btn-danger">
+              冻结(解冻)
+            </button>
+          </a>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+  </div>
 </div>
 <script>
   function info (id) {
+    $('#info').modal('show').on('shown.bs.modal',input(id))
+  }
 
+  function ice(id){
+    $('#doIce').modal('show').on('shown.bs.modal',function(){
+      document.getElementById('Ice').setAttribute("href","__MODULE__/User/user_ice&id="+id);
+    })
+  }
+
+  function input (id) {
     $.ajax({
       type : 'POST',
-      url  : "{:U('User/user_info')}",
+      /*url  : "{:U('User/user_info')}",*/
+      url  : "/yue/index.php?s=/Admin/User/user_info",
       data : 'userId='+id,
       dataType : 'json',
       error: function (request) {
@@ -80,10 +192,28 @@
       } ,
       success : function (response) {
         var data = response.data;
-        var
+
+        document.getElementById('nickname').setAttribute('value',data.nickname);
+        document.getElementById('phone').setAttribute('value',data.phone);
+        document.getElementById('id').setAttribute('value',data.id);
+        if (data.gender == 1) {
+          document.getElementById('gender').setAttribute('value','男');
+        } else {
+          document.getElementById('gender').setAttribute('value','女');
+        }
+
+        if (data.role_id == 1) {
+          document.getElementById('role_id').setAttribute('value','未认证用户');
+        } else {
+          document.getElementById('role_id').setAttribute('value','认证用户');
+        }
+
+        document.getElementById('scan').setAttribute('value',data.fans_count);
+        document.getElementById('fans').setAttribute('value',data.scan_count);
+        document.getElementById('signature').innerText = data.signature;
+
       }
     })
-
   }
 </script>
 </body>

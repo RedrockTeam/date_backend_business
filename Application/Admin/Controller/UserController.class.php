@@ -49,7 +49,40 @@ class UserController extends BaseController
     public function user_info () {
         $id = I('post.userId');
 
+        $info = M('users')->where("id = $id")->find();
 
+        $return = [
+            'status' => '200',
+            'info'   => 'success',
+            'data'   => $info
+        ];
+
+        $this->ajaxReturn($return);
+    }
+
+    public function user_edit () {
+        $Info = I('post.');
+        $id = $Info['id'];
+        $save = [
+            'nickname' => $Info['nickname'],
+            'signature'=> $Info['signature']
+        ];
+        M('users')->where("id = '$id'")->save($save);
+        $this->success('成功');
+    }
+    public function user_ice ($id) {
+        $info = M('users')->where("id = '$id'")->find();
+
+        $status = $info ['status'];
+
+        if ($status == '0') {
+            $save ['status'] = 1;
+        } else {
+            $save ['status'] = 0;
+        }
+
+        M('users')->where("id = '$id'")->save($save);
+        $this->success('成功');
     }
 
     public function search() {
@@ -65,11 +98,11 @@ class UserController extends BaseController
                 $map['id'] = $input['content'];
                 break;
         }
-        $map['role_id'] = 3;
         $data = M('users')
-            ->where()
+            ->where($map)
+            ->where("role_id != 3")
             ->select();
-        $this->assign('list', $data);
+        $this->assign('data', $data);
         $this->display('user_group');
     }
 }
