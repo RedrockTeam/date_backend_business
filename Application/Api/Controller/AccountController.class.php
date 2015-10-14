@@ -389,4 +389,25 @@ class AccountController extends Controller {
 
         return $res ? true : false;
     }
+
+    /**
+     * @param $tel
+     * @return string
+     * 用于token的创建
+     */
+    protected function tokenCreate ($tel) {
+        $str    = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ!@#$%^&*()";
+        $string = "";
+
+        for ($i = 0;$i < 16;$i++) {
+            $num     = mt_rand(0,71);
+            $string .= $str [$num];
+        }
+
+        $token = md5(sha1($string));
+
+        $update ['token'] = $token;
+        M('users')->where("phone = '$tel'")->save($update);
+        return $token;
+    }
 }
